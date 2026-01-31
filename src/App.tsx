@@ -1,7 +1,7 @@
 
 
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   // 状态管理：控制当前页面，'home' 为主页，'game' 为游戏页
@@ -41,6 +41,29 @@ function App() {
     setShowAchievementWindow(false);
   };
 
+  // 状态管理：用户昵称
+  const [userName, setUserName] = useState<string | null>(null);
+  const [showNameInput, setShowNameInput] = useState(false);
+
+  // 初始化：检查localStorage中的用户昵称
+  useEffect(() => {
+    const savedName = localStorage.getItem('bloomEraSimUserName');
+    if (savedName) {
+      setUserName(savedName);
+    } else {
+      setShowNameInput(true);
+    }
+  }, []);
+
+  // 处理保存用户昵称
+  const handleSaveName = (name: string) => {
+    if (name.trim()) {
+      setUserName(name.trim());
+      localStorage.setItem('bloomEraSimUserName', name.trim());
+      setShowNameInput(false);
+    }
+  };
+
   // 主页组件
   const HomePage = () => (
     <div className="min-h-screen bg-e6f0f8 relative" data-scene="主页">
@@ -63,6 +86,17 @@ function App() {
           Bloom Era Sim
         </h1>
       </div>
+      
+      {/* 用户昵称显示 */}
+      {userName && (
+        <div 
+          className="fixed top-4 left-4 text-blue-600 font-bold text-lg"
+          style={{ zIndex: 30 }}
+          data-tag="常规文本"
+        >
+          {userName}
+        </div>
+      )}
       
       {/* 全局设置按钮 */}
       <button
@@ -430,12 +464,66 @@ function App() {
           </div>
         </div>
       )}
+      
+      {/* 昵称输入窗口 */}
+      {showNameInput && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center" data-tag="图形">
+          {/* 虚化背景 */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            data-tag="图形"
+          ></div>
+          {/* 输入窗口内容 */}
+          <div 
+            className="bg-white rounded-xl p-6 shadow-2xl relative z-10 w-full max-w-md"
+            data-tag="图形"
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-4" data-tag="常规文本">欢迎来到青春纪元模拟器</h3>
+            <p className="text-gray-700 mb-4" data-tag="常规文本">请输入你的昵称：</p>
+            <input 
+              type="text" 
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="输入你的昵称"
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  handleSaveName((e.target as HTMLInputElement).value);
+                }
+              }}
+              data-tag="常规文本"
+              autoFocus
+            />
+            <div className="flex justify-end">
+              <button 
+                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                onClick={(e) => {
+                  const input = (e.currentTarget.parentElement?.previousElementSibling as HTMLInputElement);
+                  handleSaveName(input.value);
+                }}
+                data-tag="按钮"
+              >
+                确定
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 
   // 游戏页组件（空白页）
   const GamePage = () => (
     <div className="min-h-screen bg-e6f0f8 flex flex-col items-center justify-center" data-scene="游戏页">
+      {/* 用户昵称显示 */}
+      {userName && (
+        <div 
+          className="fixed top-4 left-4 text-blue-600 font-bold text-lg"
+          style={{ zIndex: 30 }}
+          data-tag="常规文本"
+        >
+          {userName}
+        </div>
+      )}
+      
       {/* 全局设置按钮 */}
       <button
         className="p-2 transition-all duration-300 hover:scale-110"
