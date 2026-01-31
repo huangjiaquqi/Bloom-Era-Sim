@@ -373,54 +373,54 @@ function App() {
             </div>
             <div className="overflow-y-auto h-[calc(100%-80px)] pr-2">
               {/* 成就内容示例 */}
-              <div className="space-y-4">
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+              <div className="flex flex-wrap gap-4">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">首次启动游戏</h4>
                   <p className="text-gray-600" data-tag="常规文本">启动游戏并进入主界面</p>
                   <p className="text-green-600 mt-1" data-tag="常规文本">✓ 已完成</p>
                 </div>
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">探索游戏</h4>
                   <p className="text-gray-600" data-tag="常规文本">进入游戏页面</p>
                   <p className="text-green-600 mt-1" data-tag="常规文本">✓ 已完成</p>
                 </div>
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">查看设置</h4>
                   <p className="text-gray-600" data-tag="常规文本">打开设置窗口</p>
                   <p className="text-gray-400 mt-1" data-tag="常规文本">✗ 未完成</p>
                 </div>
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">访问GitHub</h4>
                   <p className="text-gray-600" data-tag="常规文本">点击GitHub按钮</p>
                   <p className="text-gray-400 mt-1" data-tag="常规文本">✗ 未完成</p>
                 </div>
                 {/* 更多成就示例，用于测试滚动条 */}
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">成就5</h4>
                   <p className="text-gray-600" data-tag="常规文本">这是一个成就描述</p>
                   <p className="text-gray-400 mt-1" data-tag="常规文本">✗ 未完成</p>
                 </div>
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">成就6</h4>
                   <p className="text-gray-600" data-tag="常规文本">这是一个成就描述</p>
                   <p className="text-gray-400 mt-1" data-tag="常规文本">✗ 未完成</p>
                 </div>
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">成就7</h4>
                   <p className="text-gray-600" data-tag="常规文本">这是一个成就描述</p>
                   <p className="text-gray-400 mt-1" data-tag="常规文本">✗ 未完成</p>
                 </div>
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">成就8</h4>
                   <p className="text-gray-600" data-tag="常规文本">这是一个成就描述</p>
                   <p className="text-gray-400 mt-1" data-tag="常规文本">✗ 未完成</p>
                 </div>
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">成就9</h4>
                   <p className="text-gray-600" data-tag="常规文本">这是一个成就描述</p>
                   <p className="text-gray-400 mt-1" data-tag="常规文本">✗ 未完成</p>
                 </div>
-                <div className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                <div className="p-4 bg-gray-100 rounded-lg flex-1 min-w-[calc(50%-8px)]" data-tag="图形">
                   <h4 className="font-bold text-gray-900" data-tag="常规文本">成就10</h4>
                   <p className="text-gray-600" data-tag="常规文本">这是一个成就描述</p>
                   <p className="text-gray-400 mt-1" data-tag="常规文本">✗ 未完成</p>
