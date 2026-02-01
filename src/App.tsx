@@ -109,16 +109,7 @@ function App() {
         return null;
       })()}
       
-      {/* 用户昵称显示 */}
-      {userName && (
-        <div 
-          className="fixed top-4 left-4 text-blue-600 font-bold text-lg"
-          style={{ zIndex: 30 }}
-          data-tag="常规文本"
-        >
-          {userName}
-        </div>
-      )}
+
       
       {/* 全局设置按钮 */}
       <button
@@ -261,6 +252,12 @@ function App() {
           >
             {/* 标题和其他按钮部分 */}
             <div className="space-y-8">
+              {/* 用户欢迎信息 */}
+              {userName && (
+                <div className="text-right text-blue-600 font-bold text-xl" data-tag="常规文本">
+                  你好，{userName}
+                </div>
+              )}
               {/* 青春纪元模拟器标题和图标 */}
               <div className="flex items-center gap-4">
                 <h1 
