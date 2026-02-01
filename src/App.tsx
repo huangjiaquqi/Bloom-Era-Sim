@@ -44,6 +44,15 @@ function App() {
   // 状态管理：用户昵称
   const [userName, setUserName] = useState<string | null>(null);
   const [showNameInput, setShowNameInput] = useState(false);
+  const [showVersionWindow, setShowVersionWindow] = useState(false);
+
+  // 版本信息数据
+  const versions = [
+    { version: 'v1.0.0', date: '2026-02-01', features: ['初始版本发布', '基本游戏功能', '成就系统', '用户昵称系统'] },
+    { version: 'v0.9.0', date: '2026-01-31', features: ['游戏核心机制完成', '界面设计优化', '设置系统'] },
+    { version: 'v0.5.0', date: '2026-01-20', features: ['基础框架搭建', '主页界面设计', '按钮功能实现'] },
+    { version: 'v0.1.0', date: '2026-01-15', features: ['项目初始化', '基本文件结构'] }
+  ];
 
   // 初始化：检查localStorage中的用户昵称
   useEffect(() => {
@@ -62,6 +71,16 @@ function App() {
       localStorage.setItem('bloomEraSimUserName', name.trim());
       setShowNameInput(false);
     }
+  };
+
+  // 处理版本按钮点击
+  const handleVersionClick = () => {
+    setShowVersionWindow(true);
+  };
+
+  // 处理关闭版本窗口
+  const handleCloseVersionWindow = () => {
+    setShowVersionWindow(false);
   };
 
   // 主页组件
@@ -165,15 +184,17 @@ function App() {
             <span data-tag="按钮">成就</span>
           </button>
           <button
-            className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
+            className="px-4 py-4 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
             style={{
-              backgroundColor: '#ffffff',
+              backgroundColor: '#6c757d',
               border: 'none',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+              boxShadow: '0 2px 8px rgba(108,117,125,0.3)'
             }}
+            onClick={handleVersionClick}
             data-tag="按钮"
           >
-            <span data-tag="按钮">test</span>
+            <span className="text-xl" data-tag="按钮">📱</span>
+            <span data-tag="按钮">版本</span>
           </button>
           <button
             className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
@@ -522,6 +543,52 @@ function App() {
               >
                 确定
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* 版本窗口效果 */}
+      {showVersionWindow && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center" data-tag="图形">
+          {/* 虚化背景 */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={handleCloseVersionWindow}
+            data-tag="图形"
+          ></div>
+          {/* 版本窗口内容 */}
+          <div 
+            className="bg-white rounded-xl p-6 shadow-2xl relative z-10 w-[90vw] h-[90vh] max-w-[800px]"
+            data-tag="图形"
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-2xl font-bold text-gray-900" data-tag="常规文本">版本信息</h3>
+              <button 
+                className="text-gray-500 hover:text-gray-900 transition-colors text-xl"
+                onClick={handleCloseVersionWindow}
+                data-tag="按钮"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="overflow-y-auto h-[calc(100%-80px)] pr-2">
+              {/* 版本信息列表 */}
+              <div className="space-y-6">
+                {versions.map((version, index) => (
+                  <div key={index} className="p-4 bg-gray-100 rounded-lg" data-tag="图形">
+                    <div className="flex justify-between items-center mb-2">
+                      <h4 className="font-bold text-gray-900 text-lg" data-tag="常规文本">{version.version}</h4>
+                      <span className="text-gray-600" data-tag="常规文本">{version.date}</span>
+                    </div>
+                    <ul className="list-disc list-inside text-gray-700 space-y-1">
+                      {version.features.map((feature, idx) => (
+                        <li key={idx} data-tag="常规文本">{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
