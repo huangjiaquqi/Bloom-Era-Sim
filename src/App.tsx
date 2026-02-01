@@ -82,7 +82,7 @@ function App() {
             backgroundSize: '400% 100%',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            animation: 'gradient 15s ease infinite'
+            animation: 'gradient 8s ease infinite'
           }}
           data-tag="常规文本"
         >
