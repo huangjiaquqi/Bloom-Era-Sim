@@ -75,17 +75,39 @@ function App() {
         <h1 
           className="text-[12vw] font-bold text-center"
           style={{
-            color: 'rgba(0,0,0,0.05)',
-            textShadow: '0 0 20px rgba(0,0,0,0.2), 0 0 40px rgba(0,0,0,0.1), 0 0 60px rgba(0,0,0,0.05)',
             letterSpacing: '2px',
             lineHeight: '1.2',
-            whiteSpace: 'nowrap'
+            whiteSpace: 'nowrap',
+            background: 'linear-gradient(90deg, rgba(0,0,0,0.05), rgba(0,123,255,0.1), rgba(255,193,7,0.1), rgba(40,167,69,0.1), rgba(0,0,0,0.05))',
+            backgroundSize: '400% 100%',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            animation: 'gradient 15s ease infinite'
           }}
           data-tag="常规文本"
         >
           Bloom Era Sim
         </h1>
       </div>
+      
+      {/* 添加全局CSS动画 */}
+      {(() => {
+        // 创建样式元素
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+        `;
+        // 只添加一次
+        if (!document.getElementById('gradient-animation')) {
+          style.id = 'gradient-animation';
+          document.head.appendChild(style);
+        }
+        return null;
+      })()}
       
       {/* 用户昵称显示 */}
       {userName && (
