@@ -45,6 +45,7 @@ function App() {
   const [userName, setUserName] = useState<string | null>(null);
   const [showNameInput, setShowNameInput] = useState(false);
   const [showVersionWindow, setShowVersionWindow] = useState(false);
+  const [nicknameInput, setNicknameInput] = useState('');
 
   // 版本信息数据
   const versions = [
@@ -523,30 +524,22 @@ function App() {
               type="text" 
               className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="输入你的昵称"
-              maxLength={10}
+              maxLength={20}
               data-tag="常规文本"
               autoFocus
-              id="nickname-input"
-              onInput={(e) => {
-                const input = e.target as HTMLInputElement;
-                const confirmButton = document.getElementById('confirm-button') as HTMLButtonElement;
-                if (input.value.trim().length > 0) {
-                  confirmButton.disabled = false;
-                } else {
-                  confirmButton.disabled = true;
-                }
+              value={nicknameInput}
+              onChange={(e) => {
+                setNicknameInput(e.target.value);
               }}
             />
             <div className="flex justify-end">
               <button 
                 className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
-                onClick={(e) => {
-                  const input = document.getElementById('nickname-input') as HTMLInputElement;
-                  handleSaveName(input.value);
+                onClick={() => {
+                  handleSaveName(nicknameInput);
                 }}
                 data-tag="按钮"
-                id="confirm-button"
-                disabled
+                disabled={!nicknameInput.trim()}
               >
                 确定
               </button>
