@@ -523,22 +523,30 @@ function App() {
               type="text" 
               className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="输入你的昵称"
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  handleSaveName((e.target as HTMLInputElement).value);
-                }
-              }}
+              maxLength={10}
               data-tag="常规文本"
               autoFocus
+              id="nickname-input"
+              onInput={(e) => {
+                const input = e.target as HTMLInputElement;
+                const confirmButton = document.getElementById('confirm-button') as HTMLButtonElement;
+                if (input.value.trim().length > 0) {
+                  confirmButton.disabled = false;
+                } else {
+                  confirmButton.disabled = true;
+                }
+              }}
             />
             <div className="flex justify-end">
               <button 
-                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
                 onClick={(e) => {
-                  const input = (e.currentTarget.parentElement?.previousElementSibling as HTMLInputElement);
+                  const input = document.getElementById('nickname-input') as HTMLInputElement;
                   handleSaveName(input.value);
                 }}
                 data-tag="按钮"
+                id="confirm-button"
+                disabled
               >
                 确定
               </button>
