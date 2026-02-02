@@ -183,6 +183,51 @@ function App() {
             <span className="text-xl" data-tag="按钮">🏆</span>
             <span data-tag="按钮">成就</span>
           </button>
+
+          <button
+            className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
+            style={{
+              backgroundColor: '#ffffff',
+              border: 'none',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+            data-tag="按钮"
+          >
+            <span data-tag="按钮">test</span>
+          </button>
+          <button
+            className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
+            style={{
+              backgroundColor: '#ffffff',
+              border: 'none',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+            data-tag="按钮"
+          >
+            <span data-tag="按钮">test</span>
+          </button>
+          <button
+            className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
+            style={{
+              backgroundColor: '#ffffff',
+              border: 'none',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+            data-tag="按钮"
+          >
+            <span data-tag="按钮">test</span>
+          </button>
+          <button
+            className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
+            style={{
+              backgroundColor: '#ffffff',
+              border: 'none',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+            data-tag="按钮"
+          >
+            <span data-tag="按钮">test</span>
+          </button>
           <button
             className="px-4 py-4 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
             style={{
@@ -195,50 +240,6 @@ function App() {
           >
             <span className="text-xl" data-tag="按钮">📱</span>
             <span data-tag="按钮">版本</span>
-          </button>
-          <button
-            className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
-            style={{
-              backgroundColor: '#ffffff',
-              border: 'none',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-            }}
-            data-tag="按钮"
-          >
-            <span data-tag="按钮">test</span>
-          </button>
-          <button
-            className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
-            style={{
-              backgroundColor: '#ffffff',
-              border: 'none',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-            }}
-            data-tag="按钮"
-          >
-            <span data-tag="按钮">test</span>
-          </button>
-          <button
-            className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
-            style={{
-              backgroundColor: '#ffffff',
-              border: 'none',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-            }}
-            data-tag="按钮"
-          >
-            <span data-tag="按钮">test</span>
-          </button>
-          <button
-            className="px-4 py-4 rounded-xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
-            style={{
-              backgroundColor: '#ffffff',
-              border: 'none',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-            }}
-            data-tag="按钮"
-          >
-            <span data-tag="按钮">test</span>
           </button>
           <button
             className="px-4 py-4 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
