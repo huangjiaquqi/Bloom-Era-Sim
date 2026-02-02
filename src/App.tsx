@@ -231,9 +231,9 @@ function App() {
           <button
             className="px-4 py-4 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
             style={{
-              backgroundColor: '#6c757d',
+              backgroundColor: '#007bff',
               border: 'none',
-              boxShadow: '0 2px 8px rgba(108,117,125,0.3)'
+              boxShadow: '0 2px 8px rgba(0,123,255,0.3)'
             }}
             onClick={handleVersionClick}
             data-tag="按钮"
@@ -388,7 +388,6 @@ function App() {
           {/* 虚化背景 */}
           <div 
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={handleCloseWindow}
             data-tag="图形"
           ></div>
           {/* 窗口内容 */}
@@ -428,7 +427,6 @@ function App() {
           {/* 虚化背景 */}
           <div 
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={handleCloseAchievementWindow}
             data-tag="图形"
           ></div>
           {/* 成就窗口内容 */}
@@ -555,7 +553,6 @@ function App() {
           {/* 虚化背景 */}
           <div 
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={handleCloseVersionWindow}
             data-tag="图形"
           ></div>
           {/* 版本窗口内容 */}
@@ -654,7 +651,6 @@ function App() {
           {/* 虚化背景 */}
           <div 
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={handleCloseWindow}
             data-tag="图形"
           ></div>
           {/* 窗口内容 */}
