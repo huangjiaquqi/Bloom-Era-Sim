@@ -223,7 +223,12 @@ function App() {
   };
 
   return (
-    <>
+    <div className="app-container">
+      {/* 全局背景效果 - Bloom Era Sim 字样 */}
+      <div className="global-background">
+        <div className="bloom-era-text">Bloom Era Sim</div>
+      </div>
+      
       {/* 渲染当前页面 */}
       {renderPage()}
       
@@ -258,7 +263,67 @@ function App() {
           closeModal={closeModal} 
         />
       )}
-    </>
+      
+      <style>{`
+        .app-container {
+          position: relative;
+          min-height: 100vh;
+          width: 100%;
+          overflow: hidden;
+        }
+        
+        .global-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0.1;
+        }
+        
+        .bloom-era-text {
+          font-size: 30vw;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: -0.05em;
+          animation: colorShift 2s linear infinite, glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes colorShift {
+          0% { color: #ff00ff; }
+          25% { color: #00ffff; }
+          50% { color: #ffff00; }
+          75% { color: #00ff00; }
+          100% { color: #ff00ff; }
+        }
+        
+        @keyframes glow {
+          from {
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.7),
+                        0 0 40px rgba(255, 0, 255, 0.5),
+                        0 0 60px rgba(255, 0, 255, 0.3),
+                        0 0 80px rgba(255, 0, 255, 0.1);
+          }
+          to {
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.9),
+                        0 0 60px rgba(0, 255, 255, 0.7),
+                        0 0 90px rgba(0, 255, 255, 0.5),
+                        0 0 120px rgba(0, 255, 255, 0.3);
+          }
+        }
+        
+        /* 确保所有页面内容都在背景之上 */
+        .home-view,
+        .min-h-screen {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
+    </div>
   );
 }
 
