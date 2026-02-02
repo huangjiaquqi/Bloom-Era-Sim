@@ -1,201 +1,265 @@
-import { useState, useEffect } from 'react';
-import { GameState, Phase, GameEvent } from '../types';
-import { PHASE_EVENTS } from '../gameData';
+// 游戏主逻辑
+import { useState, useEffect, useCallback } from 'react';
+import { 
+  PageType, 
+  ModalType, 
+  GameEvent, 
+  EventChoice, 
+  PlayerState, 
+  ExamResult
+} from '../types';
+import { talents } from '../data/mechanics';
+import { difficultySettings } from '../data/constants';
+import { generateRandomEvent } from '../data/event_generators';
 
-export const useGameLogic = () => {
-  const [gameState, setGameState] = useState<GameState>({
-    phase: 'INIT',
-    stats: {
-      心态: 250,
-      健康: 250,
-      效率: 250,
-      经验: 0,
-      金钱: 1000,
-      运气: 250,
-      魅力: 250
-    },
-    clubs: [],
-    talents: [],
-    relationships: {},
-    items: [],
-    currentEvent: 'init_start',
-    eventHistory: [],
-    day: 1,
-    year: 1,
-    semester: 'first'
-  });
+interface UseGameLogicReturn {
+  // 游戏状态
+  currentPage: PageType;
+  showModal: boolean;
+  currentModal: ModalType | null;
+  currentEvent: GameEvent | null;
+  playerState: PlayerState;
+  examResults: ExamResult[];
+  isGameOver: boolean;
+  
+  // 操作方法
+  setCurrentPage: React.Dispatch<React.SetStateAction<PageType>>;
+  openModal: (modal: ModalType) => void;
+  closeModal: () => void;
+  handleStartGame: (difficulty: string) => void;
+  handleBackToHome: () => void;
+  handleDifficultySelect: (difficulty: string) => void;
+  handleTalentSelect: (selectedTalents: string[]) => void;
+  handleEventChoice: (choice: EventChoice) => void;
+  handleExamComplete: (score: number, rank: string) => void;
+  handleWeekendActivity: () => void;
+  handleRestart: () => void;
+  handleMainMenu: () => void;
+  advanceGameDay: () => void;
+  
+  // 游戏数据
+  availableTalents: typeof talents;
+  availableDifficulties: typeof difficultySettings;
+}
 
-  const [events, setEvents] = useState<GameEvent[]>([]);
+// 初始玩家状态
+const initialPlayerState: PlayerState = {
+  mental: 80,
+  health: 80,
+  academic: 60,
+  social: 60,
+  money: 300,
+  study_time: 0,
+  talent_points: 3,
+  selected_talents: [],
+  joined_clubs: [],
+  game_day: 1,
+  play_time: 0,
+  difficulty: '普通'
+};
 
-  useEffect(() => {
-    loadPhaseEvents();
-  }, [gameState.phase]);
+export const useGameLogic = (): UseGameLogicReturn => {
+  // 状态管理：游戏页面
+  const [currentPage, setCurrentPage] = useState<PageType>('home');
+  // 状态管理：模态窗口
+  const [showModal, setShowModal] = useState(false);
+  const [currentModal, setCurrentModal] = useState<ModalType | null>(null);
+  // 状态管理：当前事件
+  const [currentEvent, setCurrentEvent] = useState<GameEvent | null>(null);
+  // 状态管理：玩家状态
+  const [playerState, setPlayerState] = useState<PlayerState>(initialPlayerState);
+  // 状态管理：考试结果
+  const [examResults, setExamResults] = useState<ExamResult[]>([]);
+  // 状态管理：游戏结束
+  const [isGameOver, setIsGameOver] = useState(false);
 
-  const loadPhaseEvents = () => {
-    const phaseEvents = PHASE_EVENTS[gameState.phase] || [];
-    setEvents(phaseEvents);
-  };
+  // 打开模态窗口
+  const openModal = useCallback((modal: ModalType) => {
+    setCurrentModal(modal);
+    setShowModal(true);
+  }, []);
 
-  const getCurrentEvent = (): GameEvent | undefined => {
-    if (!gameState.currentEvent) return undefined;
+  // 关闭模态窗口
+  const closeModal = useCallback(() => {
+    setShowModal(false);
+    setCurrentModal(null);
+  }, []);
+
+  // 处理难度选择
+  const handleDifficultySelect = useCallback((difficultyName: string) => {
+    const difficulty = difficultySettings.find(d => d.name === difficultyName);
+    if (difficulty) {
+      setPlayerState({
+        ...initialPlayerState,
+        mental: difficulty.starting_stats.mental,
+        health: difficulty.starting_stats.health,
+        academic: difficulty.starting_stats.academic,
+        social: difficulty.starting_stats.social,
+        money: difficulty.starting_stats.money,
+        talent_points: difficulty.talent_points,
+        difficulty: difficulty.name
+      });
+      setCurrentPage('talent');
+    }
+  }, []);
+
+  // 处理天赋选择
+  const handleTalentSelect = useCallback((selectedTalents: string[]) => {
+    setPlayerState(prev => ({
+      ...prev,
+      selected_talents: selectedTalents
+    }));
+    setCurrentPage('game');
+  }, []);
+
+  // 处理开始游戏
+  const handleStartGame = useCallback((difficulty: string) => {
+    handleDifficultySelect(difficulty);
+  }, [handleDifficultySelect]);
+
+  // 处理返回主页
+  const handleBackToHome = useCallback(() => {
+    setCurrentPage('home');
+    setPlayerState(initialPlayerState);
+    setExamResults([]);
+    setIsGameOver(false);
+    setCurrentEvent(null);
+  }, []);
+
+  // 应用事件效果
+  const applyEventEffect = useCallback((effect: any) => {
+    setPlayerState(prev => ({
+      ...prev,
+      mental: Math.max(0, Math.min(100, prev.mental + (effect.mental || 0))),
+      health: Math.max(0, Math.min(100, prev.health + (effect.health || 0))),
+      academic: Math.max(0, Math.min(200, prev.academic + (effect.academic || 0))),
+      social: Math.max(0, Math.min(100, prev.social + (effect.social || 0))),
+      money: Math.max(0, prev.money + (effect.money || 0)),
+      study_time: prev.study_time + (effect.study_time || 0)
+    }));
+  }, []);
+
+  // 处理事件选择
+  const handleEventChoice = useCallback((choice: EventChoice) => {
+    applyEventEffect(choice.effect);
+    setCurrentEvent(null);
+    advanceGameDay();
+  }, [applyEventEffect]);
+
+  // 处理考试完成
+  const handleExamComplete = useCallback((score: number, rank: string) => {
+    const newExamResult: ExamResult = {
+      subject: '综合',
+      score,
+      rank,
+      date: new Date().toISOString().split('T')[0]
+    };
     
-    // 首先从当前阶段的事件中查找
-    const phaseEvent = PHASE_EVENTS[gameState.phase]?.find(
-      event => event.id === gameState.currentEvent
-    );
-    if (phaseEvent) return phaseEvent;
+    setExamResults(prev => [...prev, newExamResult]);
+    setCurrentPage('game');
+  }, []);
 
-    // 如果当前阶段找不到，从所有阶段中查找
-    for (const phase in PHASE_EVENTS) {
-      const event = PHASE_EVENTS[phase as Phase]?.find(
-        event => event.id === gameState.currentEvent
-      );
-      if (event) return event;
-    }
+  // 处理周末活动
+  const handleWeekendActivity = useCallback(() => {
+    // 暂时使用随机效果模拟
+    const randomEffect = {
+      mental: Math.floor(Math.random() * 10) - 2,
+      health: Math.floor(Math.random() * 10) - 2,
+      academic: Math.floor(Math.random() * 10) - 2,
+      social: Math.floor(Math.random() * 10) - 2,
+      money: Math.floor(Math.random() * 50) - 20,
+      study_time: Math.floor(Math.random() * 120)
+    };
+    
+    applyEventEffect(randomEffect);
+    advanceGameDay();
+  }, [applyEventEffect]);
 
-    return undefined;
-  };
-
-  const processChoice = (_eventId: string, choiceIndex: number) => {
-    const event = getCurrentEvent();
-    if (!event) return;
-
-    const choice = event.choices[choiceIndex];
-    if (!choice) return;
-
-    // 检查选择条件
-    if (choice.requirements) {
-      if (choice.requirements.stats) {
-        for (const [stat, value] of Object.entries(choice.requirements.stats)) {
-          if ((gameState.stats as any)[stat] < value) {
-            return; // 不满足条件，无法选择
-          }
-        }
-      }
-
-      if (choice.requirements.clubs) {
-        for (const club of choice.requirements.clubs) {
-          if (!gameState.clubs.includes(club)) {
-            return; // 不满足条件，无法选择
-          }
-        }
-      }
-
-      if (choice.requirements.talents) {
-        for (const talent of choice.requirements.talents) {
-          if (!gameState.talents.includes(talent)) {
-            return; // 不满足条件，无法选择
-          }
-        }
-      }
-    }
-
-    // 处理选择结果
-    const newState = { ...gameState };
-
-    // 更新属性
-    if (choice.outcomes.stats) {
-      for (const [stat, value] of Object.entries(choice.outcomes.stats)) {
-        (newState.stats as any)[stat] += value;
-        // 确保属性值在合理范围内，金钱没有上限
-        if (stat !== '金钱') {
-          (newState.stats as any)[stat] = Math.max(0, Math.min(500, (newState.stats as any)[stat]));
-        } else {
-          (newState.stats as any)[stat] = Math.max(0, (newState.stats as any)[stat]);
-        }
-      }
-    }
-
-    // 更新俱乐部
-    if (choice.outcomes.clubs) {
-      if (choice.outcomes.clubs.join) {
-        newState.clubs = [...new Set([...newState.clubs, ...choice.outcomes.clubs.join])];
-      }
-      if (choice.outcomes.clubs.leave) {
-        newState.clubs = newState.clubs.filter(club => !choice.outcomes.clubs!.leave!.includes(club));
-      }
-    }
-
-    // 更新天赋
-    if (choice.outcomes.talents) {
-      newState.talents = [...new Set([...newState.talents, ...choice.outcomes.talents])];
-    }
-
-    // 更新关系
-    if (choice.outcomes.relationships) {
-      for (const [person, value] of Object.entries(choice.outcomes.relationships)) {
-        newState.relationships[person] = (newState.relationships[person] || 0) + value;
-      }
-    }
-
-    // 更新物品
-    if (choice.outcomes.items) {
-      newState.items = [...newState.items, ...choice.outcomes.items];
-    }
-
-    // 更新事件历史
-    newState.eventHistory = [...newState.eventHistory, event.id];
-
-    // 设置下一个事件
-    if (choice.outcomes.nextEvent) {
-      newState.currentEvent = choice.outcomes.nextEvent;
-    } else {
-      newState.currentEvent = null;
-    }
-
-    setGameState(newState);
-  };
-
-  const advancePhase = () => {
-    const phases: Phase[] = [
-      'INIT', 'JUNIOR_PRE_SUMMER', 'JUNIOR_SUMMER', 'JUNIOR_FIRST',
-      'JUNIOR_SECOND', 'JUNIOR_THIRD', 'SENIOR_PRE_SUMMER', 'SENIOR_SUMMER',
-      'SENIOR_FIRST', 'SENIOR_SECOND', 'SENIOR_THIRD', 'EXAM',
-      'GRADUATION', 'MILITARY', 'SUMMER', 'WINTER', 'END'
-    ];
-
-    const currentIndex = phases.indexOf(gameState.phase);
-    if (currentIndex < phases.length - 1) {
-      const nextPhase = phases[currentIndex + 1];
-      setGameState(prev => ({
+  // 推进游戏天数
+  const advanceGameDay = useCallback(() => {
+    setPlayerState(prev => {
+      const newDay = prev.game_day + 1;
+      
+      // 每天的自然衰减和恢复
+      const newState = {
         ...prev,
-        phase: nextPhase,
-        currentEvent: null,
-        day: 1
-      }));
-    }
-  };
-
-  const resetGame = () => {
-    setGameState({
-      phase: 'INIT',
-      stats: {
-        心态: 250,
-        健康: 250,
-        效率: 250,
-        经验: 0,
-        金钱: 1000,
-        运气: 250,
-        魅力: 250
-      },
-      clubs: [],
-      talents: [],
-      relationships: {},
-      items: [],
-      currentEvent: 'init_start',
-      eventHistory: [],
-      day: 1,
-      year: 1,
-      semester: 'first'
+        game_day: newDay,
+        mental: Math.max(0, Math.min(100, prev.mental + 2 - 1)),
+        health: Math.max(0, Math.min(100, prev.health + 1 - 0.5)),
+        academic: Math.max(0, prev.academic - 0.5),
+        social: Math.max(0, prev.social - 0.5),
+        money: Math.max(0, prev.money - 5)
+      };
+      
+      // 检查游戏结束条件
+      if (newDay > 365) {
+        setIsGameOver(true);
+        setCurrentPage('ending');
+      }
+      
+      // 随机事件触发
+      if (Math.random() < 0.3 && !currentEvent) {
+        const randomEvent = generateRandomEvent();
+        setCurrentEvent(randomEvent);
+      }
+      
+      // 考试触发
+      if (newDay % 30 === 0) {
+        setCurrentPage('exam');
+      }
+      
+      return newState;
     });
-  };
+  }, [currentEvent]);
+
+  // 处理重新开始
+  const handleRestart = useCallback(() => {
+    setCurrentPage('home');
+    setPlayerState(initialPlayerState);
+    setExamResults([]);
+    setIsGameOver(false);
+    setCurrentEvent(null);
+  }, []);
+
+  // 处理返回主菜单
+  const handleMainMenu = useCallback(() => {
+    handleBackToHome();
+  }, [handleBackToHome]);
+
+  // 游戏时间追踪
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPlayerState(prev => ({
+        ...prev,
+        play_time: prev.play_time + 1
+      }));
+    }, 60000); // 每分钟更新一次
+
+    return () => clearInterval(timer);
+  }, []);
 
   return {
-    gameState,
-    events,
-    currentEvent: getCurrentEvent(),
-    processChoice,
-    advancePhase,
-    resetGame
+    currentPage,
+    showModal,
+    currentModal,
+    currentEvent,
+    playerState,
+    examResults,
+    isGameOver,
+    setCurrentPage,
+    openModal,
+    closeModal,
+    handleStartGame,
+    handleBackToHome,
+    handleDifficultySelect,
+    handleTalentSelect,
+    handleEventChoice,
+    handleExamComplete,
+    handleWeekendActivity,
+    handleRestart,
+    handleMainMenu,
+    advanceGameDay,
+    availableTalents: talents,
+    availableDifficulties: difficultySettings
   };
 };

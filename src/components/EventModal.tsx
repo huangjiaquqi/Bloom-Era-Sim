@@ -7,14 +7,14 @@ interface EventModalProps {
   isVisible: boolean;
 }
 
-const EventModal: React.FC<EventModalProps> = ({ event, onChoice, isVisible }) => {
+export const EventModal: React.FC<EventModalProps> = ({ event, onChoice, isVisible }) => {
   if (!isVisible || !event) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 animate-fadeIn">
         <div className="p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">{event.name}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">{event.title}</h2>
           <p className="text-gray-600 mb-6">{event.description}</p>
           <div className="space-y-3">
             {event.choices.map((choice, index) => (
@@ -32,5 +32,3 @@ const EventModal: React.FC<EventModalProps> = ({ event, onChoice, isVisible }) =
     </div>
   );
 };
-
-export default EventModal;

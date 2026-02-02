@@ -1,8 +1,8 @@
 import React from 'react';
-import { GameStats } from '../types';
+import { PlayerState } from '../types';
 
 interface StatsPanelProps {
-  stats: GameStats;
+  stats: PlayerState;
 }
 
 const StatsPanel: React.FC<StatsPanelProps> = ({ stats }) => {
@@ -10,13 +10,13 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ stats }) => {
     {
       name: '常规属性',
       stats: [
-        { key: '心态', label: '心态', value: stats.心态 },
-        { key: '健康', label: '健康', value: stats.健康 },
-        { key: '效率', label: '效率', value: stats.效率 },
-        { key: '经验', label: '经验', value: stats.经验 },
-        { key: '金钱', label: '金钱', value: stats.金钱 },
-        { key: '运气', label: '运气', value: stats.运气 },
-        { key: '魅力', label: '魅力', value: stats.魅力 },
+        { key: '心态', label: '心态', value: stats.mental },
+        { key: '健康', label: '健康', value: stats.health },
+        { key: '学习', label: '学习', value: stats.academic },
+        { key: '社交', label: '社交', value: stats.social },
+        { key: '金钱', label: '金钱', value: stats.money },
+        { key: '学习时间', label: '学习时间', value: stats.study_time },
+        { key: '天赋点', label: '天赋点', value: stats.talent_points },
       ]
     }
   ];
