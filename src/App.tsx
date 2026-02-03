@@ -111,7 +111,7 @@ function App() {
         );
       case 'game':
         return (
-          <div className="min-h-screen flex flex-col items-center justify-center" style={{ background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }} data-scene="游戏页">
+          <div className="min-h-screen flex flex-col items-center justify-center game-view" data-scene="游戏页">
             {/* 游戏主界面 */}
             <div className="game-content">
               <h1>游戏界面</h1>
@@ -126,6 +126,29 @@ function App() {
             </div>
             
             <style>{`
+              .game-view {
+                background: linear-gradient(130deg, #f7f9fc 0%, #c6d2e4 100%);
+                animation: backgroundShift 20s ease-in-out infinite;
+              }
+              
+              @keyframes backgroundShift {
+                0% {
+                  background: linear-gradient(130deg, #f7f9fc 0%, #c6d2e4 100%);
+                }
+                25% {
+                  background: linear-gradient(135deg, #f5f8fc 0%, #c4d0e2 100%);
+                }
+                50% {
+                  background: linear-gradient(140deg, #f6f9fc 0%, #c5d1e3 100%);
+                }
+                75% {
+                  background: linear-gradient(145deg, #f4f7fb 0%, #c3cfdf 100%);
+                }
+                100% {
+                  background: linear-gradient(130deg, #f7f9fc 0%, #c6d2e4 100%);
+                }
+              }
+              
               .game-content {
                 text-align: center;
                 padding: 4rem;
