@@ -107,7 +107,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           align-items: stretch;
           gap: 2rem;
           width: 100%;
-          max-width: 1200px;
+          max-width: 1600px;
           justify-content: center;
         }
         
@@ -124,10 +124,10 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           min-width: 500px;
           max-width: 800px;
         }
-        s
+        
         .start-game-container {
-          width: 95%;
-          max-width: 1200px;
+          width: 98%;
+          max-width: 1300px;
           display: flex;
           justify-content: flex-start;
           margin-top: 1.5rem;
@@ -213,7 +213,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         
         .home-content {
           width: 100%;
-          max-width: 1200px;
+          max-width: 1600px;
           display: flex;
           flex-direction: column;
           gap: 2rem;
@@ -229,9 +229,9 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         }
         
         .difficulty-container {
-          width: 95%;
-          max-width: 1200px;
-          aspect-ratio: 2/2;
+          width: 100%;
+          max-width: 1500px;
+          aspect-ratio: 3/2;
           background: white;
           border-radius: 20px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -323,7 +323,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         
         .start-game-container {
           width: 100%;
-          max-width: 1000px;
+          max-width: 1500px;
           margin-top: 1.5rem;
           display: flex;
           justify-content: center;
