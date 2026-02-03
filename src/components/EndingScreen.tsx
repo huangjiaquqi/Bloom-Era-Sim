@@ -210,13 +210,13 @@ const EndingScreen: React.FC<EndingScreenProps> = ({
             background: linear-gradient(130deg, #f7f9fc 0%, #c6d2e4 100%);
           }
           25% {
-            background: linear-gradient(135deg, #f5f8fc 0%, #c4d0e2 100%);
+            background: linear-gradient(135deg, #f0f4f8 0%, #b8c6d8 100%);
           }
           50% {
-            background: linear-gradient(140deg, #f6f9fc 0%, #c5d1e3 100%);
+            background: linear-gradient(140deg, #e8f0f7 0%, #a8b8cc 100%);
           }
           75% {
-            background: linear-gradient(145deg, #f4f7fb 0%, #c3cfdf 100%);
+            background: linear-gradient(145deg, #f5f9fc 0%, #c9d6e6 100%);
           }
           100% {
             background: linear-gradient(130deg, #f7f9fc 0%, #c6d2e4 100%);
