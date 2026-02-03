@@ -21,13 +21,46 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
       ></div>
       {/* 窗口内容 */}
       <div 
-        className="bg-white rounded-xl p-6 shadow-2xl relative z-10 w-full max-w-md"
+        className={`rounded-xl p-6 shadow-2xl relative z-10 w-full max-w-md ${
+          uiStyle === 'liquid-glass' 
+            ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm' 
+            : uiStyle === 'acrylic' 
+              ? 'bg-white/69 backdrop-blur-md' 
+              : 'bg-white'
+        }`}
+        style={{
+          ...(uiStyle === 'liquid-glass' && {
+            background: '#FFFFFF2A',
+            border: '1px solid #FFFFFF33',
+            backdropFilter: 'blur(10px) saturate(1.35)',
+            boxShadow: `
+              0 8px 24px #20268833,
+              inset 0px 0px 10px #FFFFFF1A,
+              inset -3px 3px 4px #FFFFFF10,
+              inset -0.5px 0.5px 0px #FFFFFF60
+            `
+          }),
+          ...(uiStyle === 'acrylic' && {
+            background: '#FFFFFFB0',
+            backdropFilter: 'blur(20px)',
+            border: 'none',
+            boxShadow: '0px 2px 12px rgba(0,0,0,.1)'
+          }),
+          ...(uiStyle === 'default' && {
+            background: 'white',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+          })
+        }}
         data-tag="图形"
       >
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold text-gray-900" data-tag="常规文本">设置</h3>
           <button 
-            className="text-gray-500 hover:text-gray-900 transition-colors"
+            className={`transition-colors ${
+              uiStyle === 'liquid-glass' || uiStyle === 'acrylic' 
+                ? 'text-white hover:text-gray-200' 
+                : 'text-gray-500 hover:text-gray-900'
+            }`}
             onClick={closeModal}
             data-tag="按钮"
           >
@@ -40,43 +73,107 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
           <h4 className="text-lg font-semibold mb-3" data-tag="常规文本">UI风格</h4>
           <div className="space-y-2">
             <div 
-              className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${uiStyle === 'default' ? 'bg-blue-100 border-2 border-blue-500' : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'}`}
+              className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${
+                uiStyle === 'default' 
+                  ? 'bg-blue-100 border-2 border-blue-500' 
+                  : uiStyle === 'liquid-glass' || uiStyle === 'acrylic' 
+                    ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm hover:bg-white/25' 
+                    : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
+              }`}
+              style={{
+                ...((uiStyle === 'liquid-glass' || uiStyle === 'acrylic') && uiStyle !== 'default' && {
+                  background: 'rgba(255, 255, 255, 0.165)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(5px)'
+                })
+              }}
               onClick={() => handleStyleChange('default')}
               data-tag="按钮"
             >
               <div className={`w-5 h-5 rounded-full mr-3 flex items-center justify-center ${uiStyle === 'default' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>
                 {uiStyle === 'default' && <span className="text-xs">✓</span>}
               </div>
-              <span className="text-gray-800" data-tag="常规文本">默认</span>
+              <span className={`${(uiStyle === 'liquid-glass' || uiStyle === 'acrylic') ? 'text-white' : 'text-gray-800'}`} data-tag="常规文本">默认</span>
             </div>
             
             <div 
-              className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${uiStyle === 'liquid-glass' ? 'bg-blue-100 border-2 border-blue-500' : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'}`}
+              className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${
+                uiStyle === 'liquid-glass' 
+                  ? 'bg-blue-100 border-2 border-blue-500' 
+                  : uiStyle === 'liquid-glass' || uiStyle === 'acrylic' 
+                    ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm hover:bg-white/25' 
+                    : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
+              }`}
+              style={{
+                ...((uiStyle === 'liquid-glass' || uiStyle === 'acrylic') && uiStyle !== 'liquid-glass' && {
+                  background: 'rgba(255, 255, 255, 0.165)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(5px)'
+                })
+              }}
               onClick={() => handleStyleChange('liquid-glass')}
               data-tag="按钮"
             >
               <div className={`w-5 h-5 rounded-full mr-3 flex items-center justify-center ${uiStyle === 'liquid-glass' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>
                 {uiStyle === 'liquid-glass' && <span className="text-xs">✓</span>}
               </div>
-              <span className="text-gray-800" data-tag="常规文本">液态玻璃</span>
+              <span className={`${(uiStyle === 'liquid-glass' || uiStyle === 'acrylic') ? 'text-white' : 'text-gray-800'}`} data-tag="常规文本">液态玻璃</span>
             </div>
             
             <div 
-              className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${uiStyle === 'acrylic' ? 'bg-blue-100 border-2 border-blue-500' : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'}`}
+              className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${
+                uiStyle === 'acrylic' 
+                  ? 'bg-blue-100 border-2 border-blue-500' 
+                  : uiStyle === 'liquid-glass' || uiStyle === 'acrylic' 
+                    ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm hover:bg-white/25' 
+                    : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
+              }`}
+              style={{
+                ...((uiStyle === 'liquid-glass' || uiStyle === 'acrylic') && uiStyle !== 'acrylic' && {
+                  background: 'rgba(255, 255, 255, 0.165)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(5px)'
+                })
+              }}
               onClick={() => handleStyleChange('acrylic')}
               data-tag="按钮"
             >
               <div className={`w-5 h-5 rounded-full mr-3 flex items-center justify-center ${uiStyle === 'acrylic' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>
                 {uiStyle === 'acrylic' && <span className="text-xs">✓</span>}
               </div>
-              <span className="text-gray-800" data-tag="常规文本">亚克力</span>
+              <span className={`${(uiStyle === 'liquid-glass' || uiStyle === 'acrylic') ? 'text-white' : 'text-gray-800'}`} data-tag="常规文本">亚克力</span>
             </div>
           </div>
         </div>
         
         <div className="flex justify-end">
           <button 
-            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+            className={`px-4 py-2 rounded-md transition-colors ${
+              uiStyle === 'liquid-glass' 
+                ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm hover:bg-white/25' 
+                : uiStyle === 'acrylic' 
+                  ? 'bg-white/69 backdrop-blur-md hover:bg-white/75' 
+                  : 'bg-gray-100 hover:bg-gray-200'
+            }`}
+            style={{
+              ...(uiStyle === 'liquid-glass' && {
+                background: 'rgba(255, 255, 255, 0.165)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(5px)',
+                color: 'white'
+              }),
+              ...(uiStyle === 'acrylic' && {
+                background: 'rgba(255, 255, 255, 0.69)',
+                backdropFilter: 'blur(10px)',
+                border: 'none',
+                color: '#333'
+              }),
+              ...(uiStyle === 'default' && {
+                background: '#f3f4f6',
+                border: 'none',
+                color: '#333'
+              })
+            }}
             onClick={closeModal}
             data-tag="按钮"
           >
