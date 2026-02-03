@@ -64,15 +64,6 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
                 <span className="difficulty-name">现实</span>
               </div>
             </div>
-            <div className="start-game-section">
-              <button 
-                className="start-button" 
-                onClick={handleStartGame}
-                disabled={!selectedDifficulty}
-              >
-                开始游戏
-              </button>
-            </div>
           </div>
         </div>
         
@@ -217,10 +208,10 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         
         .difficulty-option {
           flex: 1;
-          min-width: 120px;
-          max-width: 180px;
-          padding: 1.5rem 1rem;
-          border-radius: 12px;
+          min-width: 100px;
+          max-width: 150px;
+          padding: 1rem 0.8rem;
+          border-radius: 10px;
           cursor: pointer;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
           display: flex;
@@ -268,57 +259,44 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         }
         
         .difficulty-name {
-          font-size: 1.3rem;
+          font-size: 1.1rem;
           font-weight: bold;
           position: relative;
           z-index: 1;
         }
         
-        .start-game-section {
-          margin-top: 1rem;
+        .start-game-container {
+          width: 90%;
+          max-width: 1000px;
+          margin-top: 1.5rem;
+          display: flex;
+          justify-content: flex-start;
+          padding: 0;
+          margin-left: 5%;
         }
         
         .start-button {
           background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
           color: white;
           border: none;
-          padding: 1rem 3rem;
+          padding: 1rem 0;
           border-radius: 10px;
           font-size: 1.2rem;
           font-weight: bold;
           cursor: pointer;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
+          width: 100%;
+          box-sizing: border-box;
         }
         
         .start-button:hover:not(:disabled) {
-          transform: scale(1.05);
+          transform: translateY(-2px);
           box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
         
         .start-button:disabled {
           opacity: 0.6;
           cursor: not-allowed;
-        }
-        
-        .load-game-section {
-          text-align: center;
-        }
-        
-        .load-button {
-          background: #3498db;
-          color: white;
-          border: none;
-          padding: 1rem 2rem;
-          border-radius: 8px;
-          font-size: 1.1rem;
-          font-weight: bold;
-          cursor: pointer;
-          transition: background 0.3s ease, transform 0.2s ease;
-        }
-        
-        .load-button:hover {
-          background: #2980b9;
-          transform: scale(1.05);
         }
         
         .home-footer {
