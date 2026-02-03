@@ -43,38 +43,46 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
       
       <div className="home-content">
         <div className="difficulty-selection">
-          <div className="difficulty-container">
-            <div className="difficulty-title">难度</div>
-            <div className="difficulty-options">
-              <div 
-                className={`difficulty-option easy ${selectedDifficulty === '普通' ? 'selected' : ''}`}
-                onClick={() => handleDifficultyClick('普通')}
-              >
-                <span className="difficulty-name">普通</span>
+          <div className="layout-container">
+            {/* 左侧矩形 */}
+            <div className="left-rectangle"></div>
+            
+            {/* 中央内容 */}
+            <div className="center-content">
+              <div className="difficulty-container">
+                <div className="difficulty-title">难度</div>
+                <div className="difficulty-options">
+                  <div 
+                    className={`difficulty-option easy ${selectedDifficulty === '普通' ? 'selected' : ''}`}
+                    onClick={() => handleDifficultyClick('普通')}
+                  >
+                    <span className="difficulty-name">普通</span>
+                  </div>
+                  <div 
+                    className={`difficulty-option medium ${selectedDifficulty === '中等' ? 'selected' : ''}`}
+                    onClick={() => handleDifficultyClick('中等')}
+                  >
+                    <span className="difficulty-name">中等</span>
+                  </div>
+                  <div 
+                    className={`difficulty-option hard ${selectedDifficulty === '现实' ? 'selected' : ''}`}
+                    onClick={() => handleDifficultyClick('现实')}
+                  >
+                    <span className="difficulty-name">现实</span>
+                  </div>
+                </div>
               </div>
-              <div 
-                className={`difficulty-option medium ${selectedDifficulty === '中等' ? 'selected' : ''}`}
-                onClick={() => handleDifficultyClick('中等')}
-              >
-                <span className="difficulty-name">中等</span>
-              </div>
-              <div 
-                className={`difficulty-option hard ${selectedDifficulty === '现实' ? 'selected' : ''}`}
-                onClick={() => handleDifficultyClick('现实')}
-              >
-                <span className="difficulty-name">现实</span>
+              
+              <div className="start-game-container">
+                <button 
+                  className="start-button" 
+                  onClick={handleStartGame}
+                  disabled={!selectedDifficulty}
+                >
+                  开始游戏
+                </button>
               </div>
             </div>
-          </div>
-          
-          <div className="start-game-container">
-            <button 
-              className="start-button" 
-              onClick={handleStartGame}
-              disabled={!selectedDifficulty}
-            >
-              开始游戏
-            </button>
           </div>
         </div>
       </div>
@@ -92,6 +100,42 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           min-height: 100vh;
           padding: 2rem;
           background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .layout-container {
+          display: flex;
+          align-items: stretch;
+          gap: 2rem;
+          width: 100%;
+          max-width: 1200px;
+          justify-content: center;
+        }
+        
+        .left-rectangle {
+          width: 150px;
+          background: white;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          flex-shrink: 0;
+        }
+        
+        .center-content {
+          flex: 1;
+          min-width: 500px;
+          max-width: 800px;
+        }
+        
+        .start-game-container {
+          width: 90%;
+          max-width: 1000px;
+          display: flex;
+          justify-content: flex-start;
+          margin-top: 1.5rem;
+          align-self: center;
+        }
+        
+        .start-button {
+          width: 100%;
         }
         
         .home-header {
@@ -187,17 +231,17 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         .difficulty-container {
           width: 90%;
           max-width: 1000px;
-          aspect-ratio: 5/2;
+          aspect-ratio: 3/2;
           background: white;
           border-radius: 20px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          padding: 1.5rem 2rem;
+          padding: 2rem;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           justify-content: flex-start;
           margin-bottom: 2rem;
-          gap: 0.5rem;
+          gap: 1rem;
         }
         
         .difficulty-title {
