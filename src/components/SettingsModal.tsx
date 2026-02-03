@@ -56,11 +56,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold text-gray-900" data-tag="常规文本">设置</h3>
           <button 
-            className={`transition-colors ${
-              uiStyle === 'liquid-glass' || uiStyle === 'acrylic' 
-                ? 'text-white hover:text-gray-200' 
-                : 'text-gray-500 hover:text-gray-900'
-            }`}
+            className="transition-colors text-gray-500 hover:text-gray-900"
             onClick={closeModal}
             data-tag="按钮"
           >
@@ -93,7 +89,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
               <div className={`w-5 h-5 rounded-full mr-3 flex items-center justify-center ${uiStyle === 'default' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>
                 {uiStyle === 'default' && <span className="text-xs">✓</span>}
               </div>
-              <span className={`${(uiStyle === 'liquid-glass' || uiStyle === 'acrylic') ? 'text-white' : 'text-gray-800'}`} data-tag="常规文本">默认</span>
+              <span className="text-gray-800" data-tag="常规文本">默认</span>
             </div>
             
             <div 
@@ -117,7 +113,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
               <div className={`w-5 h-5 rounded-full mr-3 flex items-center justify-center ${uiStyle === 'liquid-glass' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>
                 {uiStyle === 'liquid-glass' && <span className="text-xs">✓</span>}
               </div>
-              <span className={`${(uiStyle === 'liquid-glass' || uiStyle === 'acrylic') ? 'text-white' : 'text-gray-800'}`} data-tag="常规文本">液态玻璃</span>
+              <span className="text-gray-800" data-tag="常规文本">液态玻璃</span>
             </div>
             
             <div 
@@ -141,7 +137,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
               <div className={`w-5 h-5 rounded-full mr-3 flex items-center justify-center ${uiStyle === 'acrylic' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>
                 {uiStyle === 'acrylic' && <span className="text-xs">✓</span>}
               </div>
-              <span className={`${(uiStyle === 'liquid-glass' || uiStyle === 'acrylic') ? 'text-white' : 'text-gray-800'}`} data-tag="常规文本">亚克力</span>
+              <span className="text-gray-800" data-tag="常规文本">亚克力</span>
             </div>
           </div>
         </div>
@@ -160,7 +156,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
                 background: 'rgba(255, 255, 255, 0.165)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
                 backdropFilter: 'blur(5px)',
-                color: 'white'
+                color: '#333'
               }),
               ...(uiStyle === 'acrylic' && {
                 background: 'rgba(255, 255, 255, 0.69)',
