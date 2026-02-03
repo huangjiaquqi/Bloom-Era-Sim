@@ -100,26 +100,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           justify-content: center;
           min-height: 100vh;
           padding: 2rem;
-          background: linear-gradient(130deg, #f7f9fc 0%, #c6d2e4 100%);
-          animation: backgroundShift 20s ease-in-out infinite;
-        }
-        
-        @keyframes backgroundShift {
-          0% {
-            background: linear-gradient(130deg, #f7f9fc 0%, #c6d2e4 100%);
-          }
-          25% {
-            background: linear-gradient(135deg, #f0f4f8 0%, #b8c6d8 100%);
-          }
-          50% {
-            background: linear-gradient(140deg, #e8f0f7 0%, #a8b8cc 100%);
-          }
-          75% {
-            background: linear-gradient(145deg, #f5f9fc 0%, #c9d6e6 100%);
-          }
-          100% {
-            background: linear-gradient(130deg, #f7f9fc 0%, #c6d2e4 100%);
-          }
+          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
         
         .layout-container {
