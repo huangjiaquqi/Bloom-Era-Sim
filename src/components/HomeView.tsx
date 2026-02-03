@@ -44,6 +44,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
       <div className="home-content">
         <div className="difficulty-selection">
           <div className="difficulty-container">
+            <div className="difficulty-title">难度</div>
             <div className="difficulty-options">
               <div 
                 className={`difficulty-option easy ${selectedDifficulty === '普通' ? 'selected' : ''}`}
@@ -65,16 +66,16 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
               </div>
             </div>
           </div>
-        </div>
-        
-        <div className="start-game-container">
-          <button 
-            className="start-button" 
-            onClick={handleStartGame}
-            disabled={!selectedDifficulty}
-          >
-            开始游戏
-          </button>
+          
+          <div className="start-game-container">
+            <button 
+              className="start-button" 
+              onClick={handleStartGame}
+              disabled={!selectedDifficulty}
+            >
+              开始游戏
+            </button>
+          </div>
         </div>
       </div>
       
@@ -178,6 +179,8 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           text-align: center;
           width: 100%;
           display: flex;
+          flex-direction: column;
+          align-items: center;
           justify-content: center;
         }
         
@@ -188,30 +191,39 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           background: white;
           border-radius: 20px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          padding: 3rem;
+          padding: 1.5rem 2rem;
           display: flex;
           flex-direction: column;
-          align-items: center;
+          align-items: flex-start;
           justify-content: flex-start;
           margin-bottom: 2rem;
-          gap: 2rem;
+          gap: 0.5rem;
+        }
+        
+        .difficulty-title {
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 0.5rem;
+          text-align: left;
+          width: 100%;
         }
         
         .difficulty-options {
           display: flex;
-          gap: 2rem;
+          gap: 1.5rem;
           width: 100%;
-          justify-content: center;
+          justify-content: flex-start;
           flex-wrap: wrap;
-          margin-top: 1rem;
+          margin-top: 0;
         }
         
         .difficulty-option {
-          flex: 1;
-          min-width: 100px;
-          max-width: 150px;
-          padding: 1rem 0.8rem;
-          border-radius: 10px;
+          flex: 0 0 auto;
+          min-width: 80px;
+          max-width: 120px;
+          padding: 0.8rem 0.6rem;
+          border-radius: 8px;
           cursor: pointer;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
           display: flex;
@@ -259,20 +271,19 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         }
         
         .difficulty-name {
-          font-size: 1.1rem;
+          font-size: 0.9rem;
           font-weight: bold;
           position: relative;
           z-index: 1;
         }
         
         .start-game-container {
-          width: 90%;
+          width: 100%;
           max-width: 1000px;
           margin-top: 1.5rem;
           display: flex;
-          justify-content: flex-start;
+          justify-content: center;
           padding: 0;
-          margin-left: 5%;
         }
         
         .start-button {

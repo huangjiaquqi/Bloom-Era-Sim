@@ -116,24 +116,7 @@ function App() {
               </div>
             )}
             
-            {/* 全局设置按钮 */}
-            <button
-              className="p-2 transition-all duration-300 hover:scale-110"
-              style={{
-                position: 'fixed',
-                top: '20px',
-                right: '20px',
-                backgroundColor: 'transparent',
-                border: 'none',
-                zIndex: 30,
-                cursor: 'pointer'
-              }}
-              onClick={() => openModal('settings')}
-              data-tag="按钮"
-              aria-label="设置"
-            >
-              <span className="text-3xl" data-tag="按钮">⚙️</span>
-            </button>
+
             
             {/* 游戏主界面 */}
             <div className="text-center p-8">
@@ -224,6 +207,16 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* 全局设置按钮 */}
+      <button
+        className="global-settings-button"
+        onClick={() => openModal('settings')}
+        data-tag="按钮"
+        aria-label="设置"
+      >
+        <span className="text-3xl" data-tag="按钮">⚙️</span>
+      </button>
+      
       {/* 渲染当前页面 */}
       {renderPage()}
       
@@ -258,6 +251,35 @@ function App() {
           closeModal={closeModal} 
         />
       )}
+      
+      <style>{`
+        .app-container {
+          position: relative;
+          min-height: 100vh;
+          width: 100%;
+          overflow: hidden;
+        }
+        
+        .global-settings-button {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background-color: transparent;
+          border: none;
+          z-index: 100;
+          cursor: pointer;
+          padding: 8px;
+          transition: transform 0.3s ease;
+        }
+        
+        .global-settings-button:hover {
+          transform: scale(1.1);
+        }
+        
+        .text-3xl {
+          font-size: 1.8rem;
+        }
+      `}</style>
     </div>
   );
 }
