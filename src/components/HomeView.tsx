@@ -124,10 +124,10 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           min-width: 500px;
           max-width: 800px;
         }
-        
+        s
         .start-game-container {
-          width: 90%;
-          max-width: 1000px;
+          width: 95%;
+          max-width: 1200px;
           display: flex;
           justify-content: flex-start;
           margin-top: 1.5rem;
@@ -229,19 +229,19 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         }
         
         .difficulty-container {
-          width: 90%;
-          max-width: 1000px;
-          aspect-ratio: 3/2;
+          width: 95%;
+          max-width: 1200px;
+          aspect-ratio: 2/2;
           background: white;
           border-radius: 20px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          padding: 2rem;
+          padding: 2.5rem;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           justify-content: flex-start;
           margin-bottom: 2rem;
-          gap: 1rem;
+          gap: 1.5rem;
         }
         
         .difficulty-title {
