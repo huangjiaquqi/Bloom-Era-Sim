@@ -1,5 +1,5 @@
 // 游戏主页（难度选择、开始/加载按钮）
-import React from 'react';
+import React, { useState } from 'react';
 import { difficultySettings } from '../data/constants';
 
 interface HomeViewProps {
@@ -9,6 +9,17 @@ interface HomeViewProps {
 }
 
 const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, userName }) => {
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
+
+  const handleDifficultyClick = (difficulty: string) => {
+    setSelectedDifficulty(difficulty);
+  };
+
+  const handleStartGame = () => {
+    if (selectedDifficulty) {
+      onDifficultySelect(selectedDifficulty);
+    }
+  };
   return (
     <div className="home-view">
       <div className="home-header">
@@ -32,31 +43,46 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
       
       <div className="home-content">
         <div className="difficulty-selection">
-          <h2>选择难度</h2>
-          <div className="difficulty-cards">
-            {difficultySettings.map((difficulty) => (
+          <div className="difficulty-container">
+            <div className="difficulty-options">
               <div 
-                key={difficulty.name}
-                className="difficulty-card"
-                onClick={() => onDifficultySelect(difficulty.name)}
+                className={`difficulty-option easy ${selectedDifficulty === '普通' ? 'selected' : ''}`}
+                onClick={() => handleDifficultyClick('普通')}
               >
-                <h3>{difficulty.name}</h3>
-                <p>{difficulty.description}</p>
-                <div className="difficulty-stats">
-                  <p>初始心态: {difficulty.starting_stats.mental}</p>
-                  <p>初始健康: {difficulty.starting_stats.health}</p>
-                  <p>初始学术: {difficulty.starting_stats.academic}</p>
-                  <p>天赋点: {difficulty.talent_points}</p>
-                </div>
-                <button className="select-button">开始游戏</button>
+                <span className="difficulty-name">普通</span>
               </div>
-            ))}
+              <div 
+                className={`difficulty-option medium ${selectedDifficulty === '中等' ? 'selected' : ''}`}
+                onClick={() => handleDifficultyClick('中等')}
+              >
+                <span className="difficulty-name">中等</span>
+              </div>
+              <div 
+                className={`difficulty-option hard ${selectedDifficulty === '现实' ? 'selected' : ''}`}
+                onClick={() => handleDifficultyClick('现实')}
+              >
+                <span className="difficulty-name">现实</span>
+              </div>
+            </div>
+            <div className="start-game-section">
+              <button 
+                className="start-button" 
+                onClick={handleStartGame}
+                disabled={!selectedDifficulty}
+              >
+                开始游戏
+              </button>
+            </div>
           </div>
         </div>
         
-        <div className="load-game-section">
-          <button className="load-button" onClick={onLoadGame}>
-            加载游戏
+        <div className="start-game-container">
+          <button 
+            className="start-button" 
+            onClick={handleStartGame}
+            disabled={!selectedDifficulty}
+          >
+            开始游戏
           </button>
         </div>
       </div>
@@ -159,70 +185,119 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         
         .difficulty-selection {
           text-align: center;
+          width: 100%;
+          display: flex;
+          justify-content: center;
         }
         
-        .difficulty-selection h2 {
-          font-size: 2rem;
-          margin-bottom: 2rem;
-          color: #333;
-        }
-        
-        .difficulty-cards {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 1.5rem;
-          margin-bottom: 2rem;
-        }
-        
-        .difficulty-card {
+        .difficulty-container {
+          width: 90%;
+          max-width: 1000px;
+          aspect-ratio: 5/2;
           background: white;
-          padding: 1.5rem;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          padding: 3rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          margin-bottom: 2rem;
+          gap: 2rem;
+        }
+        
+        .difficulty-options {
+          display: flex;
+          gap: 2rem;
+          width: 100%;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 1rem;
+        }
+        
+        .difficulty-option {
+          flex: 1;
+          min-width: 120px;
+          max-width: 180px;
+          padding: 1.5rem 1rem;
           border-radius: 12px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
           cursor: pointer;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
         }
         
-        .difficulty-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        .difficulty-option:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         
-        .difficulty-card h3 {
-          font-size: 1.5rem;
-          margin-bottom: 0.5rem;
+        .difficulty-option.easy {
+          background: #4CAF50;
+          color: white;
+        }
+        
+        .difficulty-option.medium {
+          background: #FFC107;
           color: #333;
         }
         
-        .difficulty-card p {
-          margin-bottom: 1rem;
-          color: #666;
+        .difficulty-option.hard {
+          background: #F44336;
+          color: white;
         }
         
-        .difficulty-stats {
-          margin-bottom: 1.5rem;
-          text-align: left;
-          font-size: 0.9rem;
+        .difficulty-option.selected {
+          transform: translateY(-3px);
         }
         
-        .difficulty-stats p {
-          margin-bottom: 0.3rem;
+        .difficulty-option.easy.selected {
+          box-shadow: 0 0 20px 3px #4CAF50, 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         
-        .select-button {
+        .difficulty-option.medium.selected {
+          box-shadow: 0 0 20px 3px #FFC107, 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .difficulty-option.hard.selected {
+          box-shadow: 0 0 20px 3px #F44336, 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .difficulty-name {
+          font-size: 1.3rem;
+          font-weight: bold;
+          position: relative;
+          z-index: 1;
+        }
+        
+        .start-game-section {
+          margin-top: 1rem;
+        }
+        
+        .start-button {
           background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
           color: white;
           border: none;
-          padding: 0.8rem 1.5rem;
-          border-radius: 8px;
-          font-size: 1rem;
+          padding: 1rem 3rem;
+          border-radius: 10px;
+          font-size: 1.2rem;
           font-weight: bold;
           cursor: pointer;
-          transition: transform 0.2s ease;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         
-        .select-button:hover {
+        .start-button:hover:not(:disabled) {
           transform: scale(1.05);
+          box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .start-button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
         }
         
         .load-game-section {

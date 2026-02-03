@@ -33,21 +33,6 @@ export interface GameRules {
 // 难度设置列表
 export const difficultySettings: DifficultySettings[] = [
   {
-    name: '简单',
-    description: '适合新手玩家，资源丰富，挑战较小',
-    starting_stats: {
-      mental: 100,
-      health: 100,
-      academic: 70,
-      social: 70,
-      money: 500
-    },
-    talent_points: 5,
-    event_frequency: 0.7,
-    study_efficiency: 1.2,
-    mental_decay: 0.8
-  },
-  {
     name: '普通',
     description: '平衡的游戏体验，适合大多数玩家',
     starting_stats: {
@@ -63,7 +48,7 @@ export const difficultySettings: DifficultySettings[] = [
     mental_decay: 1.0
   },
   {
-    name: '困难',
+    name: '中等',
     description: '挑战性较高，需要精心规划',
     starting_stats: {
       mental: 60,
@@ -78,7 +63,7 @@ export const difficultySettings: DifficultySettings[] = [
     mental_decay: 1.2
   },
   {
-    name: '地狱',
+    name: '现实',
     description: '极限挑战，适合经验丰富的玩家',
     starting_stats: {
       mental: 40,
