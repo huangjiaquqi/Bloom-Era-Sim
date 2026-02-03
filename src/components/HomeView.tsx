@@ -12,7 +12,16 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
   return (
     <div className="home-view">
       <div className="home-header">
-        <h1>Bloom Era Sim</h1>
+        <div className="title-container">
+          <h1 className="animated-title">
+            {"Bloom Era Sim".split('').map((char, index) => (
+              <span key={index} className="letter" style={{ animationDelay: `${index * 0.2}s` }}>
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
+          </h1>
+          <h2 className="chinese-title">青春纪元模拟器</h2>
+        </div>
         <p className="home-subtitle">Made by JasperHuang</p>
         {userName && (
           <div className="user-greeting">
@@ -72,14 +81,59 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           margin-bottom: 3rem;
         }
         
-        .home-header h1 {
+        .title-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 2rem;
+          flex-wrap: wrap;
+        }
+        
+        .animated-title {
           font-size: 3rem;
-          font-weight: bold;
+          font-weight: 900;
           margin-bottom: 0.5rem;
-          background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+        
+        .chinese-title {
+          font-size: 2.5rem;
+          font-weight: 900;
+          color: #000000;
+          text-align: center;
+        }
+        
+        .animated-title .letter {
+          display: inline-block;
+          animation: colorShift 4s linear infinite, glow 4s ease-in-out infinite alternate;
+          animation-delay: 0s;
+        }
+        
+        @keyframes colorShift {
+          0% { color: #ff00ff; }
+          25% { color: #00ffff; }
+          50% { color: #ffff00; }
+          75% { color: #00ff00; }
+          100% { color: #ff00ff; }
+        }
+        
+        @keyframes glow {
+          from {
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.7),
+                        0 0 40px rgba(255, 0, 255, 0.5),
+                        0 0 60px rgba(255, 0, 255, 0.3),
+                        0 0 80px rgba(255, 0, 255, 0.1);
+          }
+          to {
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.9),
+                        0 0 60px rgba(0, 255, 255, 0.7),
+                        0 0 90px rgba(0, 255, 255, 0.5),
+                        0 0 120px rgba(0, 255, 255, 0.3);
+          }
         }
         
         .home-subtitle {
