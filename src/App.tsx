@@ -104,100 +104,74 @@ function App() {
         );
       case 'game':
         return (
-          <div className="min-h-screen bg-e6f0f8 flex flex-col items-center justify-center" data-scene="游戏页">
-            {/* 用户昵称显示 */}
-            {userName && (
-              <div 
-                className="fixed top-4 right-4 text-blue-600 font-bold text-xl"
-                style={{ zIndex: 30 }}
-                data-tag="常规文本"
-              >
-                你好，{userName}
-              </div>
-            )}
-            
-
-            
+          <div className="min-h-screen flex flex-col items-center justify-center" style={{ background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }} data-scene="游戏页">
             {/* 游戏主界面 */}
-            <div className="text-center p-8">
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">游戏页</h1>
-              <p className="text-gray-600 mb-8">这是游戏页面，具体UI将在后续实现</p>
-              
-              {/* 游戏状态显示 */}
-              <div className="bg-white rounded-xl p-6 shadow-lg mb-8 w-full max-w-md">
-                <h2 className="text-xl font-bold mb-4">游戏状态</h2>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span>心态: {playerState.mental}</span>
-                    <span>健康: {playerState.health}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>学术: {playerState.academic}</span>
-                    <span>社交: {playerState.social}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>金钱: ¥{playerState.money}</span>
-                    <span>学习时间: {Math.round(playerState.study_time / 60)}小时</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>游戏天数: {playerState.game_day}</span>
-                    <span>难度: {playerState.difficulty}</span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* 游戏控制按钮 */}
-              <div className="flex flex-wrap gap-4 justify-center">
-                <button
-                  className="px-6 py-3 rounded-2xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
-                  style={{
-                    backgroundColor: '#ffffff',
-                    border: 'none',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                  }}
-                  onClick={advanceGameDay}
-                  data-tag="按钮"
-                >
-                  <span data-tag="按钮">推进一天</span>
-                </button>
-                <button
-                  className="px-6 py-3 rounded-2xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
-                  style={{
-                    backgroundColor: '#ffffff',
-                    border: 'none',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                  }}
-                  onClick={() => openModal('achievements')}
-                  data-tag="按钮"
-                >
-                  <span data-tag="按钮">查看成就</span>
-                </button>
-                <button
-                  className="px-6 py-3 rounded-2xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
-                  style={{
-                    backgroundColor: '#ffffff',
-                    border: 'none',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                  }}
-                  onClick={() => openModal('version')}
-                  data-tag="按钮"
-                >
-                  <span data-tag="按钮">版本信息</span>
-                </button>
-                <button
-                  className="px-6 py-3 rounded-2xl text-gray-900 font-medium transition-all duration-300 hover:scale-105"
-                  style={{
-                    backgroundColor: '#ffffff',
-                    border: 'none',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                  }}
-                  onClick={handleMainMenu}
-                  data-tag="按钮"
-                >
-                  <span data-tag="按钮">返回主页</span>
-                </button>
-              </div>
+            <div className="game-content">
+              <h1>游戏界面</h1>
+              <p className="placeholder-text">暂未做完</p>
+              <button
+                className="back-button"
+                onClick={handleMainMenu}
+                data-tag="按钮"
+              >
+                返回主页
+              </button>
             </div>
+            
+            <style>{`
+              .game-content {
+                text-align: center;
+                background: white;
+                padding: 4rem;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                max-width: 600px;
+                width: 100%;
+              }
+              
+              .game-content h1 {
+                font-size: 2.5rem;
+                color: #333;
+                margin-bottom: 2rem;
+              }
+              
+              .placeholder-text {
+                font-size: 1.5rem;
+                color: #666;
+                margin-bottom: 3rem;
+              }
+              
+              .back-button {
+                background: #3498db;
+                color: white;
+                border: none;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background 0.3s ease, transform 0.2s ease;
+              }
+              
+              .back-button:hover {
+                background: #2980b9;
+                transform: scale(1.05);
+              }
+              
+              @media (max-width: 768px) {
+                .game-content {
+                  padding: 2rem;
+                }
+                
+                .game-content h1 {
+                  font-size: 2rem;
+                }
+                
+                .placeholder-text {
+                  font-size: 1.2rem;
+                }
+              }
+            `}</style>
           </div>
         );
       default:
@@ -266,7 +240,7 @@ function App() {
           right: 20px;
           background-color: transparent;
           border: none;
-          z-index: 100;
+          z-index: 10;
           cursor: pointer;
           padding: 8px;
           transition: transform 0.3s ease;
