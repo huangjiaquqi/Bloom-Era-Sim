@@ -109,7 +109,6 @@ export const useGameLogic = (): UseGameLogicReturn => {
       ...prev,
       selected_talents: selectedTalents
     }));
-    setCurrentPage('game');
   }, []);
 
   // 处理开始游戏

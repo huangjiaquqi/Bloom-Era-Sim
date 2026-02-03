@@ -34,6 +34,9 @@ function App() {
   const [userName, setUserName] = useState<string | null>(null);
   const [showNameInput, setShowNameInput] = useState(false);
   const [nicknameInput, setNicknameInput] = useState('');
+  
+  // 状态管理：UI风格
+  const [uiStyle, setUiStyle] = useState<string>('default'); // 默认风格
 
   // 初始化：检查localStorage中的用户昵称
   useEffect(() => {
@@ -69,6 +72,7 @@ function App() {
             onDifficultySelect={handleDifficultySelect}
             onLoadGame={handleLoadGame}
             userName={userName || ''}
+            uiStyle={uiStyle}
           />
         );
       case 'talent':
@@ -78,6 +82,7 @@ function App() {
             onTalentSelect={handleTalentSelect}
             onBack={() => setCurrentPage('home')}
             onContinue={() => setCurrentPage('game')}
+            uiStyle={uiStyle}
           />
         );
       case 'exam':
@@ -89,6 +94,7 @@ function App() {
             studyTime={playerState.study_time}
             onExamComplete={handleExamComplete}
             onCancel={() => setCurrentPage('game')}
+            uiStyle={uiStyle}
           />
         );
       case 'ending':
@@ -100,6 +106,7 @@ function App() {
             playTime={playerState.play_time}
             onRestart={handleRestart}
             onMainMenu={handleMainMenu}
+            uiStyle={uiStyle}
           />
         );
       case 'game':
@@ -121,12 +128,28 @@ function App() {
             <style>{`
               .game-content {
                 text-align: center;
-                background: white;
                 padding: 4rem;
                 border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
                 max-width: 600px;
                 width: 100%;
+                ${uiStyle === 'liquid-glass' ? `
+                  background: #FFFFFF2A; /* 16.5% 透明度白色 */
+                  border: 1px solid #FFFFFF33; /* 20% 透明度白色边框 */
+                  backdrop-filter: blur(10px) saturate(1.35); /* 较浅模糊 + 饱和度增强 */
+                  box-shadow:
+                    0 8px 24px #20268833, /* 主阴影：淡蓝色（20%透明度） */
+                    inset 0px 0px 10px #FFFFFF1A, /* 内发光：白色（10%透明度） */
+                    inset -3px 3px 4px #FFFFFF10, /* 内阴影：白色（6%透明度）- 模拟玻璃厚度 */
+                    inset -0.5px 0.5px 0px #FFFFFF60; /* 高光边缘：白色（37.5%透明度）- 模拟玻璃边缘反射 */
+                ` : uiStyle === 'acrylic' ? `
+                  background: #FFFFFFB0; /* 69% 透明度白色 */
+                  backdrop-filter: blur(20px); /* 中度模糊 */
+                  border: none; /* 无边框 */
+                  box-shadow: 0px 2px 12px rgba(0,0,0,.1); /* 简洁的黑色阴影 */
+                ` : `
+                  background: white;
+                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                `}
               }
               
               .game-content h1 {
@@ -142,20 +165,34 @@ function App() {
               }
               
               .back-button {
-                background: #3498db;
                 color: white;
-                border: none;
                 padding: 1rem 2rem;
                 border-radius: 8px;
                 font-size: 1.1rem;
                 font-weight: bold;
                 cursor: pointer;
                 transition: background 0.3s ease, transform 0.2s ease;
+                ${uiStyle === 'liquid-glass' ? `
+                  background: rgba(52, 152, 219, 0.8); /* 半透明按钮背景 */
+                  backdrop-filter: blur(5px); /* 轻微模糊 */
+                  border: 1px solid rgba(255, 255, 255, 0.3); /* 半透明边框 */
+                ` : uiStyle === 'acrylic' ? `
+                  background: rgba(52, 152, 219, 0.9); /* 半透明按钮背景 */
+                  backdrop-filter: blur(10px); /* 中度模糊 */
+                  border: none; /* 无边框 */
+                ` : `
+                  background: #3498db;
+                  border: none;
+                `}
               }
               
               .back-button:hover {
-                background: #2980b9;
-                transform: scale(1.05);
+                ${uiStyle === 'liquid-glass' || uiStyle === 'acrylic' ? `
+                  transform: scale(1.05);
+                ` : `
+                  background: #2980b9;
+                  transform: scale(1.05);
+                `}
               }
               
               @media (max-width: 768px) {
@@ -175,7 +212,7 @@ function App() {
           </div>
         );
       default:
-        return <HomeView onDifficultySelect={handleDifficultySelect} onLoadGame={handleLoadGame} userName={userName || ''} />;
+        return <HomeView onDifficultySelect={handleDifficultySelect} onLoadGame={handleLoadGame} userName={userName || ''} uiStyle={uiStyle} />;
     }
   };
 
@@ -200,6 +237,7 @@ function App() {
           nicknameInput={nicknameInput}
           setNicknameInput={setNicknameInput}
           saveUserName={handleSaveName}
+          uiStyle={uiStyle}
         />
       )}
       
@@ -207,6 +245,8 @@ function App() {
       {showModal && currentModal === 'settings' && (
         <SettingsModal 
           closeModal={closeModal} 
+          uiStyle={uiStyle}
+          setUiStyle={setUiStyle}
         />
       )}
       
@@ -215,6 +255,7 @@ function App() {
         <AchievementModal 
           achievements={achievements} 
           closeModal={closeModal} 
+          uiStyle={uiStyle}
         />
       )}
       
@@ -223,6 +264,7 @@ function App() {
         <VersionModal 
           versions={versions} 
           closeModal={closeModal} 
+          uiStyle={uiStyle}
         />
       )}
       
