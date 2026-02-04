@@ -7,6 +7,7 @@ import { NicknameInput } from './components/NicknameInput';
 import { SettingsModal } from './components/SettingsModal';
 import { AchievementModal } from './components/AchievementModal';
 import { VersionModal } from './components/VersionModal';
+import { AboutModal } from './components/AboutModal';
 import { useGameLogic } from './hooks/useGameLogic';
 import { achievements } from './data/achievements';
 import { versions } from './data/versions';
@@ -267,6 +268,13 @@ function App() {
           versions={versions} 
           closeModal={closeModal} 
           uiStyle={uiStyle}
+        />
+      )}
+      
+      {/* 简介窗口 */}
+      {showModal && currentModal === 'about' && (
+        <AboutModal 
+          closeModal={closeModal} 
         />
       )}
       

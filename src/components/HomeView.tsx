@@ -49,17 +49,20 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
             {/* 左侧按钮列 */}
             <div className="left-rectangle">
               <div className="side-buttons">
-                <button className="side-button" onClick={() => onOpenModal?.('achievements')}>
+                <button className="side-button achievement-button" onClick={() => onOpenModal?.('achievements')}>
                   🏆 成就
                 </button>
-                <button className="side-button" onClick={() => onOpenModal?.('version')}>
+                <button className="side-button version-button" onClick={() => onOpenModal?.('version')}>
                   📜 版本
                 </button>
-                <button className="side-button" onClick={() => onOpenModal?.('settings')}>
+                <button className="side-button settings-button" onClick={() => onOpenModal?.('settings')}>
                   ⚙️ 设置
                 </button>
-                <button className="side-button">
-                  📖 帮助
+                <button className="side-button about-button" onClick={() => onOpenModal?.('about')}>
+                  ℹ️ 简介
+                </button>
+                <button className="side-button github-button" onClick={() => window.open('https://github.com/huangjiaquqi/bloom-era-sim', '_blank')}>
+                  &lt;/&gt; GitHub
                 </button>
               </div>
             </div>
@@ -177,15 +180,62 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           display: flex;
           align-items: center;
           justify-content: center;
-          background: #ffffff;
-          color: #333333;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
-        .side-button:hover {
+        .achievement-button {
+          background: #ffc107;
+          color: white;
+        }
+        
+        .achievement-button:hover {
           transform: translateY(-2px);
-          background: #f0f0f0;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+          background: #e0a800;
+          box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+        }
+        
+        .version-button {
+          background: #3498db;
+          color: white;
+        }
+        
+        .version-button:hover {
+          transform: translateY(-2px);
+          background: #2980b9;
+          box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        .settings-button {
+          background: #343a40;
+          color: white;
+        }
+        
+        .settings-button:hover {
+          transform: translateY(-2px);
+          background: #23272b;
+          box-shadow: 0 4px 8px rgba(52, 58, 64, 0.3);
+        }
+        
+        .github-button {
+          background: #000000;
+          color: white;
+        }
+        
+        .github-button:hover {
+          transform: translateY(-2px);
+          background: #333333;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-button {
+          background: #9c27b0;
+          color: white;
+        }
+        
+        .about-button:hover {
+          transform: translateY(-2px);
+          background: #7b1fa2;
+          box-shadow: 0 4px 8px rgba(156, 39, 176, 0.3);
         }
         
         .center-content {
