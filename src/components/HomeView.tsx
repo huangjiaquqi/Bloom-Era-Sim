@@ -129,7 +129,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         }
         
         .left-rectangle {
-          width: 150px;
+          width: 200px;
           border-radius: 20px;
           flex-shrink: 0;
           display: flex;
@@ -159,47 +159,33 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         .side-buttons {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
-          padding: 1.5rem;
+          gap: 0.8rem;
+          padding: 1.2rem;
           width: 100%;
         }
         
         .side-button {
-          padding: 0.8rem 1rem;
+          padding: 0.8rem 2rem;
           border: none;
-          border-radius: 8px;
-          font-size: 0.9rem;
+          border-radius: 10px;
+          font-size: 1rem;
           font-weight: bold;
           cursor: pointer;
           transition: all 0.3s ease;
           text-align: center;
-          ${uiStyle === 'liquid-glass' ? `
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(5px);
-            color: #333;
-          ` : uiStyle === 'acrylic' ? `
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            color: #333;
-          ` : `
-            background: #f8f9fa;
-            color: #333;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          `}
+          min-height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #ffffff;
+          color: #333333;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .side-button:hover {
           transform: translateY(-2px);
-          ${uiStyle === 'liquid-glass' ? `
-            background: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-          ` : uiStyle === 'acrylic' ? `
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-          ` : `
-            background: #e9ecef;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-          `}
+          background: #f0f0f0;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
         
         .center-content {
@@ -421,18 +407,8 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         }
         
         .start-button {
-          ${uiStyle === 'liquid-glass' ? `
-            background: rgba(102, 126, 234, 0.8); /* 半透明按钮背景 */
-            backdrop-filter: blur(5px); /* 轻微模糊 */
-            border: 1px solid rgba(255, 255, 255, 0.3); /* 半透明边框 */
-          ` : uiStyle === 'acrylic' ? `
-            background: rgba(102, 126, 234, 0.9); /* 半透明按钮背景 */
-            backdrop-filter: blur(10px); /* 中度模糊 */
-            border: none; /* 无边框 */
-          ` : `
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            border: none;
-          `}
+          background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+          border: none;
           color: white;
           padding: 1rem 0;
           border-radius: 10px;

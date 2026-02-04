@@ -72,17 +72,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
               className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${
                 uiStyle === 'default' 
                   ? 'bg-blue-100 border-2 border-blue-500' 
-                  : uiStyle === 'liquid-glass' || uiStyle === 'acrylic' 
-                    ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm hover:bg-white/25' 
-                    : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
+                  : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
               }`}
-              style={{
-                ...((uiStyle === 'liquid-glass' || uiStyle === 'acrylic') && uiStyle !== 'default' && {
-                  background: 'rgba(255, 255, 255, 0.165)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  backdropFilter: 'blur(5px)'
-                })
-              }}
               onClick={() => handleStyleChange('default')}
               data-tag="按钮"
             >
@@ -96,17 +87,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
               className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${
                 uiStyle === 'liquid-glass' 
                   ? 'bg-blue-100 border-2 border-blue-500' 
-                  : uiStyle === 'liquid-glass' || uiStyle === 'acrylic' 
-                    ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm hover:bg-white/25' 
-                    : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
+                  : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
               }`}
-              style={{
-                ...((uiStyle === 'liquid-glass' || uiStyle === 'acrylic') && uiStyle !== 'liquid-glass' && {
-                  background: 'rgba(255, 255, 255, 0.165)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  backdropFilter: 'blur(5px)'
-                })
-              }}
               onClick={() => handleStyleChange('liquid-glass')}
               data-tag="按钮"
             >
@@ -120,17 +102,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
               className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${
                 uiStyle === 'acrylic' 
                   ? 'bg-blue-100 border-2 border-blue-500' 
-                  : uiStyle === 'liquid-glass' || uiStyle === 'acrylic' 
-                    ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm hover:bg-white/25' 
-                    : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
+                  : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
               }`}
-              style={{
-                ...((uiStyle === 'liquid-glass' || uiStyle === 'acrylic') && uiStyle !== 'acrylic' && {
-                  background: 'rgba(255, 255, 255, 0.165)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  backdropFilter: 'blur(5px)'
-                })
-              }}
               onClick={() => handleStyleChange('acrylic')}
               data-tag="按钮"
             >
@@ -144,31 +117,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
         
         <div className="flex justify-end">
           <button 
-            className={`px-4 py-2 rounded-md transition-colors ${
-              uiStyle === 'liquid-glass' 
-                ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm hover:bg-white/25' 
-                : uiStyle === 'acrylic' 
-                  ? 'bg-white/69 backdrop-blur-md hover:bg-white/75' 
-                  : 'bg-gray-100 hover:bg-gray-200'
-            }`}
+            className="px-4 py-2 rounded-md transition-colors bg-gray-100 hover:bg-gray-200"
             style={{
-              ...(uiStyle === 'liquid-glass' && {
-                background: 'rgba(255, 255, 255, 0.165)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                backdropFilter: 'blur(5px)',
-                color: '#333'
-              }),
-              ...(uiStyle === 'acrylic' && {
-                background: 'rgba(255, 255, 255, 0.69)',
-                backdropFilter: 'blur(10px)',
-                border: 'none',
-                color: '#333'
-              }),
-              ...(uiStyle === 'default' && {
-                background: '#f3f4f6',
-                border: 'none',
-                color: '#333'
-              })
+              background: '#f3f4f6',
+              border: 'none',
+              color: '#333'
             }}
             onClick={closeModal}
             data-tag="按钮"

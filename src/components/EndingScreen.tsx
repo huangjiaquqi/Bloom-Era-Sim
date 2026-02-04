@@ -524,34 +524,14 @@ const EndingScreen: React.FC<EndingScreenProps> = ({
 
         .restart-button {
           color: white;
-          ${uiStyle === 'liquid-glass' ? `
-            background: rgba(102, 126, 234, 0.8); /* 半透明按钮背景 */
-            backdrop-filter: blur(5px); /* 轻微模糊 */
-            border: 1px solid rgba(255, 255, 255, 0.3); /* 半透明边框 */
-          ` : uiStyle === 'acrylic' ? `
-            background: rgba(102, 126, 234, 0.9); /* 半透明按钮背景 */
-            backdrop-filter: blur(10px); /* 中度模糊 */
-            border: none; /* 无边框 */
-          ` : `
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            border: none;
-          `}
+          background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+          border: none;
         }
 
         .main-menu-button {
           color: white;
-          ${uiStyle === 'liquid-glass' ? `
-            background: rgba(52, 152, 219, 0.8); /* 半透明按钮背景 */
-            backdrop-filter: blur(5px); /* 轻微模糊 */
-            border: 1px solid rgba(255, 255, 255, 0.3); /* 半透明边框 */
-          ` : uiStyle === 'acrylic' ? `
-            background: rgba(52, 152, 219, 0.9); /* 半透明按钮背景 */
-            backdrop-filter: blur(10px); /* 中度模糊 */
-            border: none; /* 无边框 */
-          ` : `
-            background: #3498db;
-            border: none;
-          `}
+          background: #3498db;
+          border: none;
         }
 
         .restart-button:hover,

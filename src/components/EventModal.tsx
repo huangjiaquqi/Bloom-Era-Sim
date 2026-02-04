@@ -53,35 +53,10 @@ export const EventModal: React.FC<EventModalProps> = ({ event, onChoice, isVisib
               <button
                 key={index}
                 onClick={() => onChoice(index)}
-                className={`w-full text-left text-gray-800 font-medium py-3 px-4 rounded-lg transition-colors ${
-                  uiStyle === 'liquid-glass' 
-                    ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm hover:bg-white/25' 
-                    : uiStyle === 'acrylic' 
-                      ? 'bg-white/69 backdrop-blur-md hover:bg-white/75' 
-                      : 'bg-gray-50 hover:bg-gray-100'
-                }`}
+                className="w-full text-left text-gray-800 font-medium py-3 px-4 rounded-lg transition-colors bg-gray-50 hover:bg-gray-100"
                 style={{
-                  ...(uiStyle === 'liquid-glass' && {
-                    background: '#FFFFFF2A',
-                    border: '1px solid #FFFFFF33',
-                    backdropFilter: 'blur(10px) saturate(1.35)',
-                    boxShadow: `
-                      0 4px 12px #20268820,
-                      inset 0px 0px 5px #FFFFFF1A,
-                      inset -1px 1px 2px #FFFFFF10,
-                      inset -0.25px 0.25px 0px #FFFFFF60
-                    `
-                  }),
-                  ...(uiStyle === 'acrylic' && {
-                    background: '#FFFFFFB0',
-                    backdropFilter: 'blur(20px)',
-                    border: 'none',
-                    boxShadow: '0px 2px 6px rgba(0,0,0,.1)'
-                  }),
-                  ...(uiStyle === 'default' && {
-                    background: '#f3f4f6',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
-                  })
+                  background: '#f3f4f6',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
                 }}
               >
                 {choice.text}
