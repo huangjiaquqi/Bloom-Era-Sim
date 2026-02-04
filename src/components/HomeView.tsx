@@ -7,9 +7,10 @@ interface HomeViewProps {
   onLoadGame: () => void;
   userName: string;
   uiStyle?: string;
+  onOpenModal?: (modal: string) => void;
 }
 
-const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, userName, uiStyle = 'default' }) => {
+const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, userName, uiStyle = 'default', onOpenModal }) => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
 
   const handleDifficultyClick = (difficulty: string) => {
@@ -45,8 +46,23 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
       <div className="home-content">
         <div className="difficulty-selection">
           <div className="layout-container">
-            {/* 左侧矩形 */}
-            <div className="left-rectangle"></div>
+            {/* 左侧按钮列 */}
+            <div className="left-rectangle">
+              <div className="side-buttons">
+                <button className="side-button" onClick={() => onOpenModal?.('achievements')}>
+                  🏆 成就
+                </button>
+                <button className="side-button" onClick={() => onOpenModal?.('version')}>
+                  📜 版本
+                </button>
+                <button className="side-button" onClick={() => onOpenModal?.('settings')}>
+                  ⚙️ 设置
+                </button>
+                <button className="side-button">
+                  📖 帮助
+                </button>
+              </div>
+            </div>
             
             {/* 中央内容 */}
             <div className="center-content">
@@ -116,6 +132,9 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
           width: 150px;
           border-radius: 20px;
           flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           ${uiStyle === 'liquid-glass' ? `
             background: #FFFFFF2A; /* 16.5% 透明度白色 */
             border: 1px solid #FFFFFF33; /* 20% 透明度白色边框 */
@@ -134,6 +153,52 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
             background: white;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          `}
+        }
+        
+        .side-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          padding: 1.5rem;
+          width: 100%;
+        }
+        
+        .side-button {
+          padding: 0.8rem 1rem;
+          border: none;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-align: center;
+          ${uiStyle === 'liquid-glass' ? `
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            color: #333;
+          ` : uiStyle === 'acrylic' ? `
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            color: #333;
+          ` : `
+            background: #f8f9fa;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          `}
+        }
+        
+        .side-button:hover {
+          transform: translateY(-2px);
+          ${uiStyle === 'liquid-glass' ? `
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+          ` : uiStyle === 'acrylic' ? `
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+          ` : `
+            background: #e9ecef;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
           `}
         }
         

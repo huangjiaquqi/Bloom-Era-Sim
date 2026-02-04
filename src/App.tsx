@@ -73,6 +73,7 @@ function App() {
             onLoadGame={handleLoadGame}
             userName={userName || ''}
             uiStyle={uiStyle}
+            onOpenModal={openModal}
           />
         );
       case 'talent':
