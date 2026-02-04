@@ -67,22 +67,8 @@ export const AboutModal: React.FC<AboutModalProps> = ({ closeModal }) => {
             <div>
               <h4 className="text-xl font-bold text-gray-800 mb-3">鸣谢</h4>
               <p className="text-gray-700 leading-relaxed">
-                感谢所有为 Bloom Era Sim 项目做出贡献的人们：
+                感谢OIerZhang制作的css脚本Smart Hoj 26带来的ui风格设计
               </p>
-              <ul className="list-disc list-inside text-gray-700 space-y-1 mt-2">
-                <li>开发团队：感谢所有开发者的辛勤工作和创意贡献</li>
-                <li>测试人员：感谢你们的反馈和建议，帮助我们改进游戏体验</li>
-                <li>社区成员：感谢你们的支持和热情</li>
-                <li>开源贡献者：感谢你们的代码和资源贡献</li>
-              </ul>
-              <p className="text-gray-700 leading-relaxed mt-3">
-                特别鸣谢：
-              </p>
-              <ul className="list-disc list-inside text-gray-700 space-y-1 mt-2">
-                <li>React 和 TypeScript 团队，为我们提供了强大的开发工具</li>
-                <li>所有开源库的维护者，为我们的开发工作提供了便利</li>
-                <li>我们的家人和朋友，在开发过程中给予我们的理解和支持</li>
-              </ul>
             </div>
             
             <div>
