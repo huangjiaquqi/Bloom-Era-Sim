@@ -189,32 +189,22 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onLoadGame, use
         
         .animated-title .letter {
           display: inline-block;
-          animation: colorShift 4s linear infinite, glow 4s ease-in-out infinite alternate;
+          animation: colorShift 8s ease-in-out infinite;
           animation-delay: 0s;
         }
         
         @keyframes colorShift {
-          0% { color: #ff00ff; }
-          25% { color: #00ffff; }
-          50% { color: #ffff00; }
-          75% { color: #00ff00; }
-          100% { color: #ff00ff; }
+          0% { color: #000000; }
+          20% { color: #ff6699; }
+          35% { color: #6699ff; }
+          50% { color: #ffff66; }
+          65% { color: #ff9933; }
+          80% { color: #cc66ff; }
+          95% { color: #ff3333; }
+          100% { color: #000000; }
         }
         
-        @keyframes glow {
-          from {
-            text-shadow: 0 0 20px rgba(255, 0, 255, 0.7),
-                        0 0 40px rgba(255, 0, 255, 0.5),
-                        0 0 60px rgba(255, 0, 255, 0.3),
-                        0 0 80px rgba(255, 0, 255, 0.1);
-          }
-          to {
-            text-shadow: 0 0 30px rgba(0, 255, 255, 0.9),
-                        0 0 60px rgba(0, 255, 255, 0.7),
-                        0 0 90px rgba(0, 255, 255, 0.5),
-                        0 0 120px rgba(0, 255, 255, 0.3);
-          }
-        }
+
         
         .home-subtitle {
           font-size: 1rem;
