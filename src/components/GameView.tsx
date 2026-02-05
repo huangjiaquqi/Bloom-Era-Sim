@@ -5,7 +5,7 @@ interface GameViewProps {
   uiStyle?: string;
 }
 
-const GameView: React.FC<GameViewProps> = ({ onBackToHome, uiStyle = 'default' }) => {
+const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
   return (
     <div className="game-view">
       {/* 上方圆角矩形 */}
@@ -37,9 +37,9 @@ const GameView: React.FC<GameViewProps> = ({ onBackToHome, uiStyle = 'default' }
         .top-rectangle {
           position: absolute;
           top: 0;
-          left: 0;
+          left: 250px; /* 为左侧矩形留出空间 */
           right: 0;
-          height: 120px;
+          height: 150px; /* 增加高度 */
           border-radius: 0 0 20px 20px;
           ${uiStyle === 'liquid-glass' ? `
             background: #FFFFFF2A;
@@ -72,7 +72,7 @@ const GameView: React.FC<GameViewProps> = ({ onBackToHome, uiStyle = 'default' }
           top: 0;
           left: 0;
           bottom: 0;
-          width: 200px;
+          width: 250px; /* 增加宽度 */
           border-radius: 0 20px 20px 0;
           ${uiStyle === 'liquid-glass' ? `
             background: #FFFFFF2A;
@@ -101,7 +101,19 @@ const GameView: React.FC<GameViewProps> = ({ onBackToHome, uiStyle = 'default' }
 
         @media (max-width: 768px) {
           .top-rectangle {
+            height: 120px;
+            left: 200px; /* 为左侧矩形留出空间 */
+          }
+          
+          .left-rectangle {
+            width: 200px;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .top-rectangle {
             height: 100px;
+            left: 150px; /* 为左侧矩形留出空间 */
           }
           
           .left-rectangle {

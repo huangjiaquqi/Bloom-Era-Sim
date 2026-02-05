@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import HomeView from './components/HomeView';
 import TalentView from './components/TalentView';
 import ExamView from './components/ExamView';
+import GameView from './components/GameView';
 import EndingScreen from './components/EndingScreen';
 import { NicknameInput } from './components/NicknameInput';
 import { SettingsModal } from './components/SettingsModal';
@@ -110,91 +111,10 @@ function App() {
         );
       case 'game':
         return (
-          <div className="min-h-screen flex flex-col items-center justify-center" style={{ background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }} data-scene="游戏页">
-            {/* 游戏主界面 */}
-            <div className="game-content">
-              <h1>游戏界面</h1>
-              <p className="placeholder-text">暂未做完</p>
-              <button
-                className="back-button"
-                onClick={handleMainMenu}
-                data-tag="按钮"
-              >
-                返回主页
-              </button>
-            </div>
-            
-            <style>{`
-              .game-content {
-                text-align: center;
-                padding: 4rem;
-                border-radius: 20px;
-                max-width: 600px;
-                width: 100%;
-                ${uiStyle === 'liquid-glass' ? `
-                  background: #FFFFFF2A; /* 16.5% 透明度白色 */
-                  border: 1px solid #FFFFFF33; /* 20% 透明度白色边框 */
-                  backdrop-filter: blur(10px) saturate(1.35); /* 较浅模糊 + 饱和度增强 */
-                  box-shadow:
-                    0 8px 24px #20268833, /* 主阴影：淡蓝色（20%透明度） */
-                    inset 0px 0px 10px #FFFFFF1A, /* 内发光：白色（10%透明度） */
-                    inset -3px 3px 4px #FFFFFF10, /* 内阴影：白色（6%透明度）- 模拟玻璃厚度 */
-                    inset -0.5px 0.5px 0px #FFFFFF60; /* 高光边缘：白色（37.5%透明度）- 模拟玻璃边缘反射 */
-                ` : uiStyle === 'acrylic' ? `
-                  background: #FFFFFFB0; /* 69% 透明度白色 */
-                  backdrop-filter: blur(20px); /* 中度模糊 */
-                  border: none; /* 无边框 */
-                  box-shadow: 0px 2px 12px rgba(0,0,0,.1); /* 简洁的黑色阴影 */
-                ` : `
-                  background: white;
-                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                `}
-              }
-              
-              .game-content h1 {
-                font-size: 2.5rem;
-                color: #333;
-                margin-bottom: 2rem;
-              }
-              
-              .placeholder-text {
-                font-size: 1.5rem;
-                color: #666;
-                margin-bottom: 3rem;
-              }
-              
-              .back-button {
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 8px;
-                font-size: 1.1rem;
-                font-weight: bold;
-                cursor: pointer;
-                transition: background 0.3s ease, transform 0.2s ease;
-                background: #3498db;
-                border: none;
-              }
-              
-              .back-button:hover {
-                background: #2980b9;
-                transform: scale(1.05);
-              }
-              
-              @media (max-width: 768px) {
-                .game-content {
-                  padding: 2rem;
-                }
-                
-                .game-content h1 {
-                  font-size: 2rem;
-                }
-                
-                .placeholder-text {
-                  font-size: 1.2rem;
-                }
-              }
-            `}</style>
-          </div>
+          <GameView 
+            onBackToHome={handleMainMenu} 
+            uiStyle={uiStyle} 
+          />
         );
       default:
         return <HomeView onDifficultySelect={handleDifficultySelect} onLoadGame={handleLoadGame} userName={userName || ''} uiStyle={uiStyle} />;
