@@ -111,8 +111,8 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
                           <p 
                             className="mt-1"
                             style={{
-                              background: `${categoryColor}15`,
-                              color: categoryColor,
+                              background: categoryColor,
+                              color: 'white',
                               padding: '8px',
                               borderRadius: '4px',
                               border: `1px solid ${categoryColor}33`,

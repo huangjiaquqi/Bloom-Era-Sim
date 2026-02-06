@@ -96,6 +96,12 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
                   </div>
                 </div>
                 
+                {selectedDifficulty !== '现实' && (
+                  <div className="achievement-note" style={{ color: '#FFC107', fontSize: '0.85rem', fontWeight: 'bold', marginTop: '0.5rem' }}>
+                    ⚠️ 只有现实难度才能解锁成就
+                  </div>
+                )}
+                
                 <div className="difficulty-title">模式</div>
                 <div className="difficulty-options">
                   <div 
