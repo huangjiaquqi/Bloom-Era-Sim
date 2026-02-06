@@ -12,7 +12,7 @@ export const achievements: CategorizedAchievement[] = [
   {
     id: 'regular-placeholder',
     title: '常规成就',
-    description: '常规品质成就占位',
+    description: '常规品质成就占位（只能在现实模式下达成）',
     completed: false,
     icon: '🌱',
     category: 'regular'
@@ -22,7 +22,7 @@ export const achievements: CategorizedAchievement[] = [
   {
     id: 'rare-placeholder',
     title: '稀有成就',
-    description: '稀有品质成就占位',
+    description: '稀有品质成就占位（只能在现实模式下达成）',
     completed: false,
     icon: '⭐',
     category: 'rare'
@@ -32,7 +32,7 @@ export const achievements: CategorizedAchievement[] = [
   {
     id: 'epic-placeholder',
     title: '史诗成就',
-    description: '史诗品质成就占位',
+    description: '史诗品质成就占位（只能在现实模式下达成）',
     completed: false,
     icon: '🌟',
     category: 'epic'
@@ -42,7 +42,7 @@ export const achievements: CategorizedAchievement[] = [
   {
     id: 'legendary-placeholder',
     title: '传说成就',
-    description: '传说品质成就占位',
+    description: '传说品质成就占位（只能在现实模式下达成）',
     completed: false,
     icon: '💎',
     category: 'legendary'
