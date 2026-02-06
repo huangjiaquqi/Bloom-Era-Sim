@@ -101,15 +101,6 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
                   开始游戏
                 </button>
               </div>
-              
-              <div className="start-game-container">
-                <button 
-                  className="start-button quick-mode-button"
-                  onClick={() => onDifficultySelect('普通')}
-                >
-                  快速模式
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -481,15 +472,6 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
         .start-button:hover:not(:disabled) {
           transform: translateY(-2px);
           box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-        
-        .quick-mode-button {
-          background: linear-gradient(45deg, #4CAF50 0%, #45a049 100%);
-        }
-        
-        .quick-mode-button:hover:not(:disabled) {
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
         }
         
         .start-button:disabled {
