@@ -294,14 +294,14 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
         }
         
         @keyframes colorShift {
-          0% { color: #000000; }
-          20% { color: #ff6699; }
-          35% { color: #6699ff; }
-          50% { color: #ffff66; }
-          65% { color: #ff9933; }
-          80% { color: #cc66ff; }
-          95% { color: #ff3333; }
-          100% { color: #000000; }
+          0% { color: #ff6b6b; }
+          20% { color: #4ecdc4; }
+          35% { color: #45b7d1; }
+          50% { color: #feca57; }
+          65% { color: #1dd1a1; }
+          80% { color: #5f27cd; }
+          95% { color: #ff9ff3; }
+          100% { color: #ff6b6b; }
         }
         
 

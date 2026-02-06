@@ -265,28 +265,28 @@ function App() {
         }
         
         @keyframes colorShift {
-          0% { color: #666; }
-          14% { color: #4a63cc; }
-          28% { color: #5a3d7a; }
-          42% { color: #d36ad8; }
-          56% { color: #3498db; }
-          70% { color: #2ecc71; }
-          84% { color: #f39c12; }
-          100% { color: #666; }
+          0% { color: #ff6b6b; }
+          14% { color: #4ecdc4; }
+          28% { color: #45b7d1; }
+          42% { color: #ff9ff3; }
+          56% { color: #feca57; }
+          70% { color: #1dd1a1; }
+          84% { color: #5f27cd; }
+          100% { color: #ff6b6b; }
         }
         
         @keyframes glow {
           from {
-            text-shadow: 0 0 20px rgba(102, 102, 102, 0.7),
-                        0 0 40px rgba(102, 102, 102, 0.5),
-                        0 0 60px rgba(102, 102, 102, 0.3),
-                        0 0 80px rgba(102, 102, 102, 0.1);
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.7),
+                        0 0 40px rgba(78, 205, 196, 0.5),
+                        0 0 60px rgba(69, 183, 209, 0.3),
+                        0 0 80px rgba(255, 159, 243, 0.1);
           }
           to {
-            text-shadow: 0 0 30px rgba(243, 156, 18, 0.9),
-                        0 0 60px rgba(46, 204, 113, 0.7),
-                        0 0 90px rgba(52, 152, 219, 0.5),
-                        0 0 120px rgba(74, 99, 204, 0.3);
+            text-shadow: 0 0 30px rgba(254, 202, 87, 0.9),
+                        0 0 60px rgba(29, 209, 161, 0.7),
+                        0 0 90px rgba(95, 39, 205, 0.5),
+                        0 0 120px rgba(255, 107, 107, 0.3);
           }
         }
         
