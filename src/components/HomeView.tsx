@@ -11,13 +11,18 @@ interface HomeViewProps {
 
 const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiStyle = 'default', onOpenModal }) => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
+  const [selectedMode, setSelectedMode] = useState<string | null>(null);
 
   const handleDifficultyClick = (difficulty: string) => {
     setSelectedDifficulty(difficulty);
   };
 
+  const handleModeClick = (mode: string) => {
+    setSelectedMode(mode);
+  };
+
   const handleStartGame = () => {
-    if (selectedDifficulty) {
+    if (selectedDifficulty && selectedMode) {
       onDifficultySelect(selectedDifficulty);
     }
   };
@@ -75,19 +80,35 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
                     className={`difficulty-option easy ${selectedDifficulty === '普通' ? 'selected' : ''}`}
                     onClick={() => handleDifficultyClick('普通')}
                   >
-                    <span className="difficulty-name">普通</span>
+                    <span className="difficulty-name">🌱 普通</span>
                   </div>
                   <div 
                     className={`difficulty-option medium ${selectedDifficulty === '中等' ? 'selected' : ''}`}
                     onClick={() => handleDifficultyClick('中等')}
                   >
-                    <span className="difficulty-name">中等</span>
+                    <span className="difficulty-name">⚡ 中等</span>
                   </div>
                   <div 
                     className={`difficulty-option hard ${selectedDifficulty === '现实' ? 'selected' : ''}`}
                     onClick={() => handleDifficultyClick('现实')}
                   >
-                    <span className="difficulty-name">现实</span>
+                    <span className="difficulty-name">🏆 现实</span>
+                  </div>
+                </div>
+                
+                <div className="difficulty-title">模式</div>
+                <div className="difficulty-options">
+                  <div 
+                    className={`difficulty-option mode-fast ${selectedMode === '快速模式' ? 'selected' : ''}`}
+                    onClick={() => handleModeClick('快速模式')}
+                  >
+                    <span className="difficulty-name">🚀 快速模式</span>
+                  </div>
+                  <div 
+                    className={`difficulty-option mode-deep ${selectedMode === '深度模式' ? 'selected' : ''}`}
+                    onClick={() => handleModeClick('深度模式')}
+                  >
+                    <span className="difficulty-name">🌊 深度模式</span>
                   </div>
                 </div>
               </div>
@@ -96,7 +117,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
                 <button 
                   className="start-button" 
                   onClick={handleStartGame}
-                  disabled={!selectedDifficulty}
+                  disabled={!selectedDifficulty || !selectedMode}
                 >
                   开始游戏
                 </button>
@@ -423,6 +444,16 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
           color: white;
         }
         
+        .difficulty-option.mode-fast {
+          background: linear-gradient(135deg, #4CAF50 0%, #F44336 100%);
+          color: white;
+        }
+        
+        .difficulty-option.mode-deep {
+          background: linear-gradient(135deg, #2196F3 0%, #9C27B0 100%);
+          color: white;
+        }
+        
         .difficulty-option.selected {
           transform: translateY(-3px);
         }
@@ -437,6 +468,14 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
         
         .difficulty-option.hard.selected {
           box-shadow: 0 0 20px 3px #F44336, 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .difficulty-option.mode-fast.selected {
+          box-shadow: 0 0 20px 3px rgba(76, 175, 80, 0.7), 0 0 20px 3px rgba(244, 67, 54, 0.7), 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .difficulty-option.mode-deep.selected {
+          box-shadow: 0 0 20px 3px rgba(33, 150, 243, 0.7), 0 0 20px 3px rgba(156, 39, 176, 0.7), 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         
         .difficulty-name {
