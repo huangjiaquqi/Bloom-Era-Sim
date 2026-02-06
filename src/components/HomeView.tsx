@@ -22,7 +22,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
   };
 
   const handleStartGame = () => {
-    if (selectedDifficulty && selectedMode) {
+    if (selectedDifficulty && selectedMode === '快速模式') {
       onDifficultySelect(selectedDifficulty);
     }
   };
@@ -105,8 +105,9 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
                     <span className="difficulty-name">🚀 快速模式</span>
                   </div>
                   <div 
-                    className={`difficulty-option mode-deep ${selectedMode === '深度模式' ? 'selected' : ''}`}
-                    onClick={() => handleModeClick('深度模式')}
+                    className={`difficulty-option mode-deep disabled ${selectedMode === '深度模式' ? 'selected' : ''}`}
+                    onClick={() => {}}
+                    style={{ cursor: 'not-allowed', opacity: 0.6 }}
                   >
                     <span className="difficulty-name">🌊 深度模式</span>
                   </div>
@@ -117,7 +118,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
                 <button 
                   className="start-button" 
                   onClick={handleStartGame}
-                  disabled={!selectedDifficulty || !selectedMode}
+                  disabled={!selectedDifficulty || selectedMode !== '快速模式'}
                 >
                   开始游戏
                 </button>

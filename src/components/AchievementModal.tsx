@@ -1,14 +1,28 @@
 // 成就窗口组件
 import React from 'react';
-import { Achievement } from '../types';
+import { CategorizedAchievement, getAchievementCategories, getCategoryDisplayName } from '../data/achievements';
 
 interface AchievementModalProps {
-  achievements: Achievement[];
+  achievements: CategorizedAchievement[];
   closeModal: () => void;
   uiStyle?: string;
 }
 
 export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements, closeModal, uiStyle = 'default' }) => {
+  // 获取所有成就分类
+  const categories = getAchievementCategories();
+  
+  // 根据分类获取颜色
+  const getCategoryColor = (category: string) => {
+    switch(category) {
+      case 'regular': return '#4CAF50';
+      case 'rare': return '#2196F3';
+      case 'epic': return '#9C27B0';
+      case 'legendary': return '#FF9800';
+      default: return '#666';
+    }
+  };
+  
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center" data-tag="图形">
       {/* 虚化背景 */}
@@ -61,54 +75,67 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
           </button>
         </div>
         <div className="overflow-y-auto h-[calc(100%-80px)] pr-2">
-          {/* 成就内容 */}
-          <div className="flex flex-wrap gap-4">
-            {achievements.map((achievement) => (
-              <div 
-                key={achievement.id} 
-                className={`p-4 rounded-lg flex-1 min-w-[calc(50%-8px)] ${
-                  uiStyle === 'liquid-glass' 
-                    ? 'bg-white/16.5 border border-white/20 backdrop-blur-sm' 
-                    : uiStyle === 'acrylic' 
-                      ? 'bg-white/69 backdrop-blur-md' 
-                      : 'bg-gray-100'
-                }`}
-                style={{
-                  ...(uiStyle === 'liquid-glass' && {
-                    background: '#FFFFFF2A',
-                    border: '1px solid #FFFFFF33',
-                    backdropFilter: 'blur(10px) saturate(1.35)',
-                    boxShadow: `
-                      0 4px 12px #20268820,
-                      inset 0px 0px 5px #FFFFFF1A,
-                      inset -1px 1px 2px #FFFFFF10,
-                      inset -0.25px 0.25px 0px #FFFFFF60
-                    `
-                  }),
-                  ...(uiStyle === 'acrylic' && {
-                    background: '#FFFFFFB0',
-                    backdropFilter: 'blur(20px)',
-                    border: 'none',
-                    boxShadow: '0px 2px 6px rgba(0,0,0,.1)'
-                  }),
-                  ...(uiStyle === 'default' && {
-                    background: '#f3f4f6',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
-                  })
-                }}
-                data-tag="图形"
-              >
-                <h4 className="font-bold text-gray-900" data-tag="常规文本">{achievement.title}</h4>
-                <p className="text-gray-600" data-tag="常规文本">{achievement.description}</p>
-                <p 
-                  className={`mt-1 ${achievement.completed ? 'text-green-600' : 'text-gray-400'}`}
+          {/* 按分类显示成就 */}
+          {categories.map((category) => {
+            const categoryAchievements = achievements.filter(a => a.category === category);
+            if (categoryAchievements.length === 0) return null;
+            
+            const categoryColor = getCategoryColor(category);
+            
+            return (
+              <div key={category} className="mb-6">
+                <h4 
+                  className="text-xl font-bold mb-3 flex items-center"
+                  style={{ color: categoryColor }}
                   data-tag="常规文本"
                 >
-                  {achievement.completed ? '✓ 已完成' : '✗ 未完成'}
-                </p>
+                  {getCategoryDisplayName(category)}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {categoryAchievements.map((achievement) => (
+                    <div 
+                      key={achievement.id} 
+                      className="p-4 rounded-lg"
+                      style={{
+                        background: '#f8f9fa',
+                        border: `1px solid ${categoryColor}33`,
+                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+                        borderRadius: '8px'
+                      }}
+                      data-tag="图形"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="text-2xl">{achievement.icon}</div>
+                        <div className="flex-1">
+                          <h5 className="font-bold text-gray-900" data-tag="常规文本">{achievement.title}</h5>
+                          <p 
+                            className="mt-1"
+                            style={{
+                              background: `${categoryColor}15`,
+                              color: categoryColor,
+                              padding: '8px',
+                              borderRadius: '4px',
+                              border: `1px solid ${categoryColor}33`,
+                              fontWeight: 500
+                            }}
+                            data-tag="常规文本"
+                          >
+                            {achievement.description}
+                          </p>
+                          <p 
+                            className={`mt-2 ${achievement.completed ? 'text-green-600' : 'text-gray-400'} font-medium`}
+                            data-tag="常规文本"
+                          >
+                            {achievement.completed ? '✓ 已完成' : '✗ 未完成'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>

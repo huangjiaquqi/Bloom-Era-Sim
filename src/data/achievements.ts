@@ -1,65 +1,71 @@
 // 成就数据
 import { Achievement } from '../types';
 
-export const achievements: Achievement[] = [
+// 成就分类接口
+export interface CategorizedAchievement extends Achievement {
+  icon: string;
+  category: 'regular' | 'rare' | 'epic' | 'legendary';
+}
+
+export const achievements: CategorizedAchievement[] = [
+  // 常规成就
   {
-    id: 'first-launch',
-    title: '首次启动游戏',
-    description: '启动游戏并进入主界面',
-    completed: true
+    id: 'regular-placeholder',
+    title: '常规成就',
+    description: '常规品质成就占位',
+    completed: false,
+    icon: '🌱',
+    category: 'regular'
   },
+  
+  // 稀有成就
   {
-    id: 'explore-game',
-    title: '探索游戏',
-    description: '进入游戏页面',
-    completed: true
+    id: 'rare-placeholder',
+    title: '稀有成就',
+    description: '稀有品质成就占位',
+    completed: false,
+    icon: '⭐',
+    category: 'rare'
   },
+  
+  // 史诗成就
   {
-    id: 'view-settings',
-    title: '查看设置',
-    description: '打开设置窗口',
-    completed: false
+    id: 'epic-placeholder',
+    title: '史诗成就',
+    description: '史诗品质成就占位',
+    completed: false,
+    icon: '🌟',
+    category: 'epic'
   },
+  
+  // 传说成就
   {
-    id: 'visit-github',
-    title: '访问GitHub',
-    description: '点击GitHub按钮',
-    completed: false
-  },
-  {
-    id: 'achievement-5',
-    title: '成就5',
-    description: '这是一个成就描述',
-    completed: false
-  },
-  {
-    id: 'achievement-6',
-    title: '成就6',
-    description: '这是一个成就描述',
-    completed: false
-  },
-  {
-    id: 'achievement-7',
-    title: '成就7',
-    description: '这是一个成就描述',
-    completed: false
-  },
-  {
-    id: 'achievement-8',
-    title: '成就8',
-    description: '这是一个成就描述',
-    completed: false
-  },
-  {
-    id: 'achievement-9',
-    title: '成就9',
-    description: '这是一个成就描述',
-    completed: false
-  },
-  {
-    id: 'achievement-10',
-    title: '成就10',
-    description: '这是一个成就描述',
-    completed: false
+    id: 'legendary-placeholder',
+    title: '传说成就',
+    description: '传说品质成就占位',
+    completed: false,
+    icon: '💎',
+    category: 'legendary'
   }
 ];
+
+// 按分类获取成就
+export const getAchievementsByCategory = (category: string) => {
+  return achievements.filter(achievement => achievement.category === category);
+};
+
+// 获取所有成就分类
+export const getAchievementCategories = () => {
+  return ['regular', 'rare', 'epic', 'legendary'];
+};
+
+// 获取分类的中文名称
+export const getCategoryDisplayName = (category: string) => {
+  const categoryNames = {
+    regular: '常规成就',
+    rare: '稀有成就',
+    epic: '史诗成就',
+    legendary: '传说成就'
+  };
+  return categoryNames[category as keyof typeof categoryNames] || category;
+};
