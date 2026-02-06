@@ -19,6 +19,7 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
       case 'rare': return '#2196F3';
       case 'epic': return '#9C27B0';
       case 'legendary': return '#FF9800';
+      case 'hidden': return '#F44336';
       default: return '#666';
     }
   };
