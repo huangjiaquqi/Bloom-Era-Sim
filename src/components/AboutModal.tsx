@@ -10,7 +10,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ closeModal }) => {
     <div className="fixed inset-0 z-40 flex items-center justify-center" data-tag="图形">
       {/* 虚化背景 */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-transparent backdrop-blur-sm"
         data-tag="图形"
       ></div>
       {/* 简介窗口内容 */}
