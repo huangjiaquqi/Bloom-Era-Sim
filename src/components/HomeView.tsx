@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 interface HomeViewProps {
   onDifficultySelect: (difficulty: string) => void;
   onLoadGame: () => void;
-  onStartGame: (difficulty: string) => void;
+  onStartGame: () => void;
   userName: string;
   uiStyle?: string;
   onOpenModal?: (modal: string) => void;
@@ -24,7 +24,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onStartGame, us
 
   const handleStartGame = () => {
     if (selectedDifficulty && selectedMode === '快速模式') {
-      onStartGame(selectedDifficulty);
+      onStartGame();
       onDifficultySelect(selectedDifficulty);
     }
   };

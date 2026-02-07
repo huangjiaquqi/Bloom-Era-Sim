@@ -63,7 +63,8 @@ function App() {
         // 更新成就列表
         setAchievements(getAchievements(userName));
         // 找到解锁的成就
-        const unlockedAchievement = achievements.find(a => a.id === achievementId);
+        const updatedAchievements = getAchievements(userName);
+        const unlockedAchievement = updatedAchievements.find(a => a.id === achievementId);
         if (unlockedAchievement) {
           // 显示通知
           setCurrentNotification(unlockedAchievement);
@@ -76,6 +77,13 @@ function App() {
       }
     }
   };
+  
+  // 监听页面变化，当进入游戏界面时触发成就解锁
+  useEffect(() => {
+    if (currentPage === 'game' && playerState.difficulty === '现实') {
+      handleAchievementUnlock('regular-first', playerState.difficulty);
+    }
+  }, [currentPage, playerState.difficulty]);
 
   // 初始化：检查localStorage中的用户昵称
   useEffect(() => {
@@ -110,10 +118,8 @@ function App() {
           <HomeView
             onDifficultySelect={handleDifficultySelect}
             onLoadGame={handleLoadGame}
-            onStartGame={(difficulty: string) => {
-              if (difficulty === '现实') {
-                handleAchievementUnlock('regular-first', difficulty);
-              }
+            onStartGame={() => {
+              // 成就解锁逻辑已移至useEffect监听currentPage变化时处理
             }}
             userName={userName || ''}
             uiStyle={uiStyle}
@@ -164,10 +170,8 @@ function App() {
           <HomeView 
             onDifficultySelect={handleDifficultySelect} 
             onLoadGame={handleLoadGame} 
-            onStartGame={(difficulty: string) => {
-              if (difficulty === '现实') {
-                handleAchievementUnlock('regular-first', difficulty);
-              }
+            onStartGame={() => {
+              // 成就解锁逻辑已移至useEffect监听currentPage变化时处理
             }}
             userName={userName || ''} 
             uiStyle={uiStyle} 
