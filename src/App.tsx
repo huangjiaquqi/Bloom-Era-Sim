@@ -10,7 +10,7 @@ import { AchievementModal } from './components/AchievementModal';
 import { VersionModal } from './components/VersionModal';
 import { AboutModal } from './components/AboutModal';
 import { useGameLogic } from './hooks/useGameLogic';
-import { achievements } from './data/achievements';
+import { getAchievements } from './data/achievements';
 import { versions } from './data/versions';
 import { ModalType } from './types';
 
@@ -36,8 +36,18 @@ function App() {
   const [showNameInput, setShowNameInput] = useState(false);
   const [nicknameInput, setNicknameInput] = useState('');
   
+  // 状态管理：成就
+  const [achievements, setAchievements] = useState(getAchievements(''));
+  
   // 状态管理：UI风格
   const [uiStyle, setUiStyle] = useState<string>('default'); // 默认风格
+  
+  // 当用户昵称变化时，更新成就
+  useEffect(() => {
+    if (userName) {
+      setAchievements(getAchievements(userName));
+    }
+  }, [userName]);
 
   // 初始化：检查localStorage中的用户昵称
   useEffect(() => {

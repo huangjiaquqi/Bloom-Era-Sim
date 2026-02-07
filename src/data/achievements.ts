@@ -7,7 +7,8 @@ export interface CategorizedAchievement extends Achievement {
   category: 'regular' | 'rare' | 'epic' | 'legendary' | 'hidden';
 }
 
-export const achievements: CategorizedAchievement[] = [
+// 基础成就数据
+const baseAchievements: CategorizedAchievement[] = [
   // 常规成就
   {
     id: 'regular-placeholder',
@@ -59,9 +60,69 @@ export const achievements: CategorizedAchievement[] = [
   }
 ];
 
+// 获取用户的成就存储键
+export const getAchievementsStorageKey = (userName: string): string => {
+  return `bloomEraSimAchievements_${userName}`;
+};
+
+// 获取用户的成就
+export const getAchievements = (userName: string): CategorizedAchievement[] => {
+  if (!userName) return baseAchievements;
+  
+  try {
+    const storageKey = getAchievementsStorageKey(userName);
+    const savedAchievements = localStorage.getItem(storageKey);
+    
+    if (savedAchievements) {
+      const parsedAchievements = JSON.parse(savedAchievements);
+      // 合并基础成就数据和保存的成就状态
+      return baseAchievements.map(baseAchievement => {
+        const savedAchievement = parsedAchievements.find(
+          (a: CategorizedAchievement) => a.id === baseAchievement.id
+        );
+        return savedAchievement || baseAchievement;
+      });
+    }
+  } catch (error) {
+    console.error('Error loading achievements:', error);
+  }
+  
+  return baseAchievements;
+};
+
+// 保存用户的成就
+export const saveAchievements = (userName: string, achievements: CategorizedAchievement[]): void => {
+  if (!userName) return;
+  
+  try {
+    const storageKey = getAchievementsStorageKey(userName);
+    localStorage.setItem(storageKey, JSON.stringify(achievements));
+  } catch (error) {
+    console.error('Error saving achievements:', error);
+  }
+};
+
+// 解锁成就
+export const unlockAchievement = (userName: string, achievementId: string, difficulty: string): boolean => {
+  // 只有现实难度才能解锁成就
+  if (difficulty !== '现实') return false;
+  
+  const achievements = getAchievements(userName);
+  const achievementIndex = achievements.findIndex(a => a.id === achievementId);
+  
+  if (achievementIndex !== -1 && !achievements[achievementIndex].completed) {
+    achievements[achievementIndex].completed = true;
+    saveAchievements(userName, achievements);
+    return true;
+  }
+  
+  return false;
+};
+
 // 按分类获取成就
-export const getAchievementsByCategory = (category: string) => {
-  return achievements.filter(achievement => achievement.category === category);
+export const getAchievementsByCategory = (userName: string, category: string): CategorizedAchievement[] => {
+  const userAchievements = getAchievements(userName);
+  return userAchievements.filter(achievement => achievement.category === category);
 };
 
 // 获取所有成就分类

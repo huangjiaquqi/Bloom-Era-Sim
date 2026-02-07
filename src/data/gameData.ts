@@ -1,6 +1,6 @@
 // 游戏核心数据
 import { GameData, GameState, PlayerState } from '../types';
-import { achievements } from './achievements';
+import { getAchievements } from './achievements';
 import { versions } from './versions';
 
 // 初始玩家状态
@@ -28,7 +28,7 @@ const initialState: GameState = {
   userName: null,
   showNameInput: false,
   nicknameInput: '',
-  achievements,
+  achievements: getAchievements(''),
   versions,
   playerState: initialPlayerState,
   examResults: [],
@@ -37,7 +37,7 @@ const initialState: GameState = {
 
 // 游戏数据
 export const gameData: GameData = {
-  achievements,
+  achievements: getAchievements(''),
   versions,
   events: [],
   talents: [],
