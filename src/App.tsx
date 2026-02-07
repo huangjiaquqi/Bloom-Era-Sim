@@ -251,6 +251,7 @@ function App() {
       {showModal && (currentModal as string) === 'about' && (
         <AboutModal 
           closeModal={closeModal} 
+          uiStyle={uiStyle}
         />
       )}
       

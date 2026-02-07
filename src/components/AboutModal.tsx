@@ -3,22 +3,40 @@ import React from 'react';
 
 interface AboutModalProps {
   closeModal: () => void;
+  uiStyle?: string;
 }
 
-export const AboutModal: React.FC<AboutModalProps> = ({ closeModal }) => {
+export const AboutModal: React.FC<AboutModalProps> = ({ closeModal, uiStyle = 'default' }) => {
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center" data-tag="图形">
       {/* 虚化背景 */}
       <div 
-        className="absolute inset-0 bg-transparent backdrop-blur-sm"
+        className="absolute inset-0 bg-transparent backdrop-blur-md"
         data-tag="图形"
       ></div>
       {/* 简介窗口内容 */}
       <div 
-        className="rounded-xl p-6 shadow-2xl relative z-10 w-[90vw] h-[90vh] max-w-[800px] bg-white"
+        className="rounded-xl p-6 shadow-2xl relative z-10 w-[90vw] h-[90vh] max-w-[800px]"
         style={{
-          background: 'white',
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+          ...(uiStyle === 'liquid-glass' ? {
+            background: '#FFFFFF2A',
+            border: '1px solid #FFFFFF33',
+            backdropFilter: 'blur(10px) saturate(1.35)',
+            boxShadow: `
+              0 8px 24px #20268833,
+              inset 0px 0px 10px #FFFFFF1A,
+              inset -3px 3px 4px #FFFFFF10,
+              inset -0.5px 0.5px 0px #FFFFFF60
+            `
+          } : uiStyle === 'acrylic' ? {
+            background: '#FFFFFFB0',
+            backdropFilter: 'blur(20px)',
+            border: 'none',
+            boxShadow: '0px 2px 12px rgba(0,0,0,.1)'
+          } : {
+            background: 'white',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+          })
         }}
         data-tag="图形"
       >

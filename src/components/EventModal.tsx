@@ -12,7 +12,7 @@ export const EventModal: React.FC<EventModalProps> = ({ event, onChoice, isVisib
   if (!isVisible || !event) return null;
 
   return (
-    <div className="fixed inset-0 bg-transparent backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-transparent backdrop-blur-md flex items-center justify-center z-50">
       <div 
         className={`rounded-lg shadow-xl max-w-2xl w-full mx-4 animate-fadeIn ${
           uiStyle === 'liquid-glass' 

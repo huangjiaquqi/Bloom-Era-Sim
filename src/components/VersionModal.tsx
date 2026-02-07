@@ -13,7 +13,7 @@ export const VersionModal: React.FC<VersionModalProps> = ({ versions, closeModal
     <div className="fixed inset-0 z-40 flex items-center justify-center" data-tag="图形">
       {/* 虚化背景 */}
       <div 
-        className="absolute inset-0 bg-transparent backdrop-blur-sm"
+        className="absolute inset-0 bg-transparent backdrop-blur-md"
         data-tag="图形"
       ></div>
       {/* 版本窗口内容 */}
