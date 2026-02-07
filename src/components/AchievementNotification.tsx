@@ -8,7 +8,7 @@ interface AchievementNotificationProps {
   uiStyle?: string;
 }
 
-export const AchievementNotification: React.FC<AchievementNotificationProps> = ({ achievement, onClose }) => {
+export const AchievementNotification: React.FC<AchievementNotificationProps> = ({ achievement, onClose, uiStyle = 'default' }) => {
   // 根据分类获取颜色
   const getCategoryColor = (category: string) => {
     switch(category) {
@@ -28,15 +28,44 @@ export const AchievementNotification: React.FC<AchievementNotificationProps> = (
       <div 
         className="achievement-notification-content"
         style={{
-          background: '#f8f9fa',
-          border: `1px solid ${categoryColor}33`,
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-          borderRadius: '8px',
-          padding: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          maxWidth: '300px'
+          ...(uiStyle === 'liquid-glass' ? {
+            background: '#FFFFFF2A',
+            border: `1px solid ${categoryColor}33`,
+            backdropFilter: 'blur(10px) saturate(1.35)',
+            boxShadow: `
+              0 8px 24px #20268833,
+              inset 0px 0px 10px #FFFFFF1A,
+              inset -3px 3px 4px #FFFFFF10,
+              inset -0.5px 0.5px 0px #FFFFFF60
+            `,
+            borderRadius: '8px',
+            padding: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            maxWidth: '300px'
+          } : uiStyle === 'acrylic' ? {
+            background: '#FFFFFFB0',
+            border: `1px solid ${categoryColor}33`,
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0px 2px 12px rgba(0,0,0,.1)',
+            borderRadius: '8px',
+            padding: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            maxWidth: '300px'
+          } : {
+            background: '#f8f9fa',
+            border: `1px solid ${categoryColor}33`,
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+            borderRadius: '8px',
+            padding: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            maxWidth: '300px'
+          })
         }}
         data-tag="图形"
       >
@@ -46,13 +75,33 @@ export const AchievementNotification: React.FC<AchievementNotificationProps> = (
           <p 
             className="mt-1"
             style={{
-              background: categoryColor,
-              color: 'white',
-              padding: '6px',
-              borderRadius: '4px',
-              border: `1px solid ${categoryColor}33`,
-              fontWeight: 500,
-              fontSize: '0.85rem'
+              ...(uiStyle === 'liquid-glass' ? {
+                background: `${categoryColor}80`,
+                color: 'white',
+                padding: '6px',
+                borderRadius: '4px',
+                border: `1px solid ${categoryColor}33`,
+                fontWeight: 500,
+                fontSize: '0.85rem',
+                backdropFilter: 'blur(5px)'
+              } : uiStyle === 'acrylic' ? {
+                background: `${categoryColor}90`,
+                color: 'white',
+                padding: '6px',
+                borderRadius: '4px',
+                border: `1px solid ${categoryColor}33`,
+                fontWeight: 500,
+                fontSize: '0.85rem',
+                backdropFilter: 'blur(3px)'
+              } : {
+                background: categoryColor,
+                color: 'white',
+                padding: '6px',
+                borderRadius: '4px',
+                border: `1px solid ${categoryColor}33`,
+                fontWeight: 500,
+                fontSize: '0.85rem'
+              })
             }}
             data-tag="常规文本"
           >
