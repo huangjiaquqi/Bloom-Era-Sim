@@ -11,11 +11,11 @@ export interface CategorizedAchievement extends Achievement {
 const baseAchievements: CategorizedAchievement[] = [
   // 常规成就
   {
-    id: 'regular-placeholder',
-    title: '常规成就',
-    description: '常规品质成就占位',
+    id: 'regular-first',
+    title: '入学!',
+    description: '进入游戏界面',
     completed: false,
-    icon: '🌱',
+    icon: '🎓',
     category: 'regular'
   },
   

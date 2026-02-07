@@ -7,10 +7,12 @@ import EndingScreen from './components/EndingScreen';
 import { NicknameInput } from './components/NicknameInput';
 import { SettingsModal } from './components/SettingsModal';
 import { AchievementModal } from './components/AchievementModal';
+import { AchievementNotification } from './components/AchievementNotification';
 import { VersionModal } from './components/VersionModal';
 import { AboutModal } from './components/AboutModal';
 import { useGameLogic } from './hooks/useGameLogic';
-import { getAchievements } from './data/achievements';
+import { getAchievements, unlockAchievement } from './data/achievements';
+import { CategorizedAchievement } from './data/achievements';
 import { versions } from './data/versions';
 import { ModalType } from './types';
 
@@ -39,6 +41,10 @@ function App() {
   // 状态管理：成就
   const [achievements, setAchievements] = useState(getAchievements(''));
   
+  // 状态管理：成就通知
+  const [showNotification, setShowNotification] = useState(false);
+  const [currentNotification, setCurrentNotification] = useState<CategorizedAchievement | null>(null);
+  
   // 状态管理：UI风格
   const [uiStyle, setUiStyle] = useState<string>('default'); // 默认风格
   
@@ -48,6 +54,28 @@ function App() {
       setAchievements(getAchievements(userName));
     }
   }, [userName]);
+  
+  // 处理成就解锁
+  const handleAchievementUnlock = (achievementId: string, difficulty: string) => {
+    if (userName) {
+      const unlocked = unlockAchievement(userName, achievementId, difficulty);
+      if (unlocked) {
+        // 更新成就列表
+        setAchievements(getAchievements(userName));
+        // 找到解锁的成就
+        const unlockedAchievement = achievements.find(a => a.id === achievementId);
+        if (unlockedAchievement) {
+          // 显示通知
+          setCurrentNotification(unlockedAchievement);
+          setShowNotification(true);
+          // 3秒后自动关闭通知
+          setTimeout(() => {
+            setShowNotification(false);
+          }, 3000);
+        }
+      }
+    }
+  };
 
   // 初始化：检查localStorage中的用户昵称
   useEffect(() => {
@@ -82,6 +110,11 @@ function App() {
           <HomeView
             onDifficultySelect={handleDifficultySelect}
             onLoadGame={handleLoadGame}
+            onStartGame={(difficulty: string) => {
+              if (difficulty === '现实') {
+                handleAchievementUnlock('regular-first', difficulty);
+              }
+            }}
             userName={userName || ''}
             uiStyle={uiStyle}
             onOpenModal={(modal: string) => openModal(modal as ModalType)}
@@ -127,7 +160,19 @@ function App() {
           />
         );
       default:
-        return <HomeView onDifficultySelect={handleDifficultySelect} onLoadGame={handleLoadGame} userName={userName || ''} uiStyle={uiStyle} />;
+        return (
+          <HomeView 
+            onDifficultySelect={handleDifficultySelect} 
+            onLoadGame={handleLoadGame} 
+            onStartGame={(difficulty: string) => {
+              if (difficulty === '现实') {
+                handleAchievementUnlock('regular-first', difficulty);
+              }
+            }}
+            userName={userName || ''} 
+            uiStyle={uiStyle} 
+          />
+        );
     }
   };
 
@@ -202,6 +247,15 @@ function App() {
       {showModal && (currentModal as string) === 'about' && (
         <AboutModal 
           closeModal={closeModal} 
+        />
+      )}
+      
+      {/* 成就解锁通知 */}
+      {showNotification && currentNotification && (
+        <AchievementNotification 
+          achievement={currentNotification} 
+          onClose={() => setShowNotification(false)} 
+          uiStyle={uiStyle}
         />
       )}
       

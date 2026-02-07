@@ -108,7 +108,7 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
                       <div className="flex items-start gap-3">
                         <div className="text-2xl">{achievement.icon}</div>
                         <div className="flex-1">
-                          <h5 className="font-bold text-gray-900" data-tag="常规文本">{achievement.title}</h5>
+                          <h5 className="font-bold text-gray-900 text-lg" data-tag="常规文本">{achievement.title}</h5>
                           <p 
                             className="mt-1"
                             style={{
@@ -117,7 +117,8 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
                               padding: '8px',
                               borderRadius: '4px',
                               border: `1px solid ${categoryColor}33`,
-                              fontWeight: 500
+                              fontWeight: 500,
+                              fontSize: '0.9rem'
                             }}
                             data-tag="常规文本"
                           >

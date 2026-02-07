@@ -4,12 +4,13 @@ import React, { useState } from 'react';
 interface HomeViewProps {
   onDifficultySelect: (difficulty: string) => void;
   onLoadGame: () => void;
+  onStartGame: (difficulty: string) => void;
   userName: string;
   uiStyle?: string;
   onOpenModal?: (modal: string) => void;
 }
 
-const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiStyle = 'default', onOpenModal }) => {
+const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onStartGame, userName, uiStyle = 'default', onOpenModal }) => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
   const [selectedMode, setSelectedMode] = useState<string | null>(null);
 
@@ -23,6 +24,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, userName, uiSty
 
   const handleStartGame = () => {
     if (selectedDifficulty && selectedMode === '快速模式') {
+      onStartGame(selectedDifficulty);
       onDifficultySelect(selectedDifficulty);
     }
   };
