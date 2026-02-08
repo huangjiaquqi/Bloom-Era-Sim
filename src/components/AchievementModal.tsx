@@ -1,6 +1,6 @@
 // 成就窗口组件
 import React from 'react';
-import { CategorizedAchievement, getAchievementCategories, getCategoryDisplayName } from '../data/achievements';
+import { CategorizedAchievement, getAchievementCategories, getCategoryDisplayName, getCategoryDescription } from '../data/achievements';
 
 interface AchievementModalProps {
   achievements: CategorizedAchievement[];
@@ -19,7 +19,8 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
       case 'rare': return '#2196F3';
       case 'epic': return '#9C27B0';
       case 'legendary': return '#FF9800';
-      case 'hidden': return '#F44336';
+      case 'mythic': return '#F44336';
+      case 'hidden': return '#000000';
       default: return '#666';
     }
   };
@@ -91,6 +92,13 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
                   data-tag="常规文本"
                 >
                   {getCategoryDisplayName(category)}
+                  <span 
+                    className="ml-2 text-sm font-normal opacity-80"
+                    style={{ color: categoryColor }}
+                    data-tag="常规文本"
+                  >
+                    {getCategoryDescription(category)}
+                  </span>
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {categoryAchievements.map((achievement) => (
