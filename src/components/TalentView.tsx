@@ -170,11 +170,12 @@ const TalentView: React.FC<TalentViewProps> = ({
         }
 
         .talent-content {
-          padding: 2rem;
+          padding: 3rem;
           border-radius: 20px;
-          max-width: 1000px;
-          width: 100%;
-          max-height: 80vh;
+          max-width: 1200px;
+          width: 90%;
+          max-height: 90vh;
+          min-height: 80vh;
           overflow-y: auto;
           ${uiStyle === 'liquid-glass' ? `
             background: #FFFFFF2A; /* 16.5% 透明度白色 */
