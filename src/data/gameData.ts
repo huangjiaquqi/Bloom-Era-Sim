@@ -14,6 +14,7 @@ const initialPlayerState: PlayerState = {
   talent_points: 3,
   selected_talents: [],
   joined_clubs: [],
+  activeStatuses: [],
   game_day: 1,
   play_time: 0,
   difficulty: '普通'

@@ -180,6 +180,17 @@ export interface OITraining {
   frequency: 'daily' | 'weekly' | 'monthly';
 }
 
+// 游戏状态类型
+export interface GameStatus {
+  id: string;
+  name: string;
+  description: string;
+  type: 'BUFF' | 'DEBUFF' | 'NEUTRAL';
+  duration: number; // 以周为单位
+  icon: string;
+  effectDescription: string;
+}
+
 // 玩家状态类型
 export interface PlayerState {
   mental: number;
@@ -191,6 +202,7 @@ export interface PlayerState {
   talent_points: number;
   selected_talents: string[];
   joined_clubs: string[];
+  activeStatuses: GameStatus[];
   game_day: number;
   play_time: number;
   difficulty: string;

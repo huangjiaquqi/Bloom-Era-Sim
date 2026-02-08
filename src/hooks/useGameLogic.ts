@@ -11,6 +11,7 @@ import {
 import { talents } from '../data/mechanics';
 import { difficultySettings } from '../data/constants';
 import { generateRandomEvent } from '../data/event_generators';
+import { addStatus, updateStatuses, updateDebtStatus } from '../lib/statusManager';
 
 interface UseGameLogicReturn {
   // 游戏状态
@@ -37,6 +38,9 @@ interface UseGameLogicReturn {
   handleMainMenu: () => void;
   advanceGameDay: () => void;
   
+  // 状态管理方法
+  addStatus: (statusId: string, duration?: number) => void;
+  
   // 游戏数据
   availableTalents: typeof talents;
   availableDifficulties: typeof difficultySettings;
@@ -53,6 +57,7 @@ const initialPlayerState: PlayerState = {
   talent_points: 3,
   selected_talents: [],
   joined_clubs: [],
+  activeStatuses: [],
   game_day: 1,
   play_time: 0,
   difficulty: '普通'
@@ -180,7 +185,7 @@ export const useGameLogic = (): UseGameLogicReturn => {
       const newDay = prev.game_day + 1;
       
       // 每天的自然衰减和恢复
-      const newState = {
+      let newState = {
         ...prev,
         game_day: newDay,
         mental: Math.max(0, Math.min(100, prev.mental + 2 - 1)),
@@ -189,6 +194,13 @@ export const useGameLogic = (): UseGameLogicReturn => {
         social: Math.max(0, prev.social - 0.5),
         money: Math.max(0, prev.money - 5)
       };
+      
+      // 更新状态持续时间（每周更新）
+      if (newDay % 7 === 0) {
+        newState = updateStatuses(newState);
+        // 检查并更新债务状态
+        newState = updateDebtStatus(newState);
+      }
       
       // 检查游戏结束条件
       if (newDay > 365) {
@@ -225,6 +237,13 @@ export const useGameLogic = (): UseGameLogicReturn => {
     handleBackToHome();
   }, [handleBackToHome]);
 
+  // 添加状态
+  const addStatusToPlayer = useCallback((statusId: string, duration?: number) => {
+    setPlayerState(prev => {
+      return addStatus(prev, statusId, duration);
+    });
+  }, []);
+
   // 游戏时间追踪
   useEffect(() => {
     const timer = setInterval(() => {
@@ -258,6 +277,7 @@ export const useGameLogic = (): UseGameLogicReturn => {
     handleRestart,
     handleMainMenu,
     advanceGameDay,
+    addStatus: addStatusToPlayer,
     availableTalents: talents,
     availableDifficulties: difficultySettings
   };
