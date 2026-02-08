@@ -55,7 +55,7 @@ const baseAchievements: CategorizedAchievement[] = [
     title: '神话成就',
     description: '神话品质成就占位',
     completed: false,
-    icon: '🔒',
+    icon: '👑',
     category: 'mythic'
   },
   
