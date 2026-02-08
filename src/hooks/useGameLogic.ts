@@ -12,6 +12,7 @@ import { talents } from '../data/mechanics';
 import { difficultySettings } from '../data/constants';
 import { generateRandomEvent } from '../data/event_generators';
 import { addStatus, updateStatuses, updateDebtStatus } from '../lib/statusManager';
+import { addTalent, removeTalent, hasTalent, canAffordTalent } from '../lib/talentManager';
 
 interface UseGameLogicReturn {
   // 游戏状态
@@ -40,6 +41,12 @@ interface UseGameLogicReturn {
   
   // 状态管理方法
   addStatus: (statusId: string, duration?: number) => void;
+  
+  // 天赋管理方法
+  addTalent: (talentId: string) => void;
+  removeTalent: (talentId: string) => void;
+  hasTalent: (talentId: string) => boolean;
+  canAffordTalent: (talentId: string) => boolean;
   
   // 游戏数据
   availableTalents: typeof talents;
@@ -244,6 +251,39 @@ export const useGameLogic = (): UseGameLogicReturn => {
     });
   }, []);
 
+  // 添加天赋
+  const addTalentToPlayer = useCallback((talentId: string) => {
+    setPlayerState(prev => {
+      const updatedState = addTalent(prev, talentId);
+      // 扣除天赋点数
+      const talent = talents.find(t => t.id === talentId);
+      if (talent) {
+        return {
+          ...updatedState,
+          talent_points: Math.max(0, updatedState.talent_points - talent.cost)
+        };
+      }
+      return updatedState;
+    });
+  }, []);
+
+  // 移除天赋
+  const removeTalentFromPlayer = useCallback((talentId: string) => {
+    setPlayerState(prev => {
+      return removeTalent(prev, talentId);
+    });
+  }, []);
+
+  // 检查是否拥有天赋
+  const checkHasTalent = useCallback((talentId: string) => {
+    return hasTalent(playerState, talentId);
+  }, [playerState]);
+
+  // 检查是否能购买天赋
+  const checkCanAffordTalent = useCallback((talentId: string) => {
+    return canAffordTalent(playerState, talentId);
+  }, [playerState]);
+
   // 游戏时间追踪
   useEffect(() => {
     const timer = setInterval(() => {
@@ -278,6 +318,10 @@ export const useGameLogic = (): UseGameLogicReturn => {
     handleMainMenu,
     advanceGameDay,
     addStatus: addStatusToPlayer,
+    addTalent: addTalentToPlayer,
+    removeTalent: removeTalentFromPlayer,
+    hasTalent: checkHasTalent,
+    canAffordTalent: checkCanAffordTalent,
     availableTalents: talents,
     availableDifficulties: difficultySettings
   };
