@@ -66,20 +66,36 @@ const TalentView: React.FC<TalentViewProps> = ({
           </div>
         </div>
 
-        <div className="talents-grid">
-          {talents.map((talent) => {
+        <div className="talents-container">
+          {talents.map((talent, index) => {
             const isSelected = selectedTalents.includes(talent.id);
             const isAffordable = !isSelected && usedTalentPoints + talent.cost <= availableTalentPoints;
             const isHovered = hoveredTalent === talent.id;
 
+            // 计算每个天赋窗口的位置，使它们分散在屏幕上
+            const positions = [
+              { top: '10%', left: '10%' },
+              { top: '10%', right: '10%' },
+              { top: '40%', left: '5%' },
+              { top: '40%', right: '5%' },
+              { top: '70%', left: '20%' },
+              { top: '70%', right: '20%' }
+            ];
+
+            const position = positions[index % positions.length];
+
             return (
               <div
                 key={talent.id}
-                className={`talent-card ${isSelected ? 'selected' : ''} ${isHovered ? 'hovered' : ''}`}
+                className={`talent-window ${isSelected ? 'selected' : ''} ${isHovered ? 'hovered' : ''}`}
                 onClick={() => handleTalentToggle(talent.id)}
                 onMouseEnter={() => setHoveredTalent(talent.id)}
                 onMouseLeave={() => setHoveredTalent(null)}
                 style={{
+                  position: 'absolute' as const,
+                  ...position,
+                  width: '300px',
+                  zIndex: isHovered ? 10 : 1,
                   ...(uiStyle === 'liquid-glass' && {
                     background: isSelected ? '#4CAF502A' : '#FFFFFF2A',
                     border: `1px solid ${isSelected ? '#4CAF5080' : '#FFFFFF33'}`,
@@ -225,24 +241,25 @@ const TalentView: React.FC<TalentViewProps> = ({
           font-weight: normal;
         }
 
-        .talents-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          gap: 1.5rem;
+        .talents-container {
+          position: relative;
+          width: 100%;
+          height: 80vh;
           margin-bottom: 3rem;
+          overflow: hidden;
         }
 
-        .talent-card {
+        .talent-window {
           padding: 1.5rem;
           border-radius: 12px;
           cursor: pointer;
           transition: all 0.3s ease;
-          position: relative;
           overflow: hidden;
+          min-height: 200px;
         }
 
-        .talent-card:hover {
-          transform: translateY(-5px);
+        .talent-window:hover {
+          transform: translateY(-5px) scale(1.02);
         }
 
         .talent-header {
