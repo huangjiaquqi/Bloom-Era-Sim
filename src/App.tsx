@@ -29,9 +29,11 @@ function App() {
     openModal,
     closeModal,
     handleDifficultySelect,
+    handleTalentSelect,
     handleExamComplete,
     handleRestart,
-    handleMainMenu
+    handleMainMenu,
+    availableTalents
   } = useGameLogic();
 
   // 状态管理：用户昵称
@@ -132,6 +134,10 @@ function App() {
           <TalentView
             onBack={() => setCurrentPage('home')}
             onContinue={() => setCurrentPage('game')}
+            onTalentSelect={handleTalentSelect}
+            talents={availableTalents}
+            availableTalentPoints={playerState.talent_points}
+            selectedTalents={playerState.selected_talents}
             uiStyle={uiStyle}
           />
         );

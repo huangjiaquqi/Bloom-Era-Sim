@@ -42,7 +42,7 @@ export const difficultySettings: DifficultySettings[] = [
       social: 60,
       money: 300
     },
-    talent_points: 3,
+    talent_points: 10,
     event_frequency: 1.0,
     study_efficiency: 1.0,
     mental_decay: 1.0
@@ -57,7 +57,7 @@ export const difficultySettings: DifficultySettings[] = [
       social: 50,
       money: 200
     },
-    talent_points: 2,
+    talent_points: 5,
     event_frequency: 1.3,
     study_efficiency: 0.8,
     mental_decay: 1.2
@@ -72,7 +72,7 @@ export const difficultySettings: DifficultySettings[] = [
       social: 40,
       money: 100
     },
-    talent_points: 1,
+    talent_points: 2,
     event_frequency: 1.5,
     study_efficiency: 0.6,
     mental_decay: 1.5
