@@ -151,7 +151,6 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
           padding: 1.5rem;
           ${uiStyle === 'liquid-glass' ? `
             background: #FFFFFF2A;
-            border: 1px solid #FFFFFF33;
             backdrop-filter: blur(10px) saturate(1.35);
             box-shadow:
               inset 0px 0px 10px #FFFFFF1A,
@@ -160,11 +159,9 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
           ` : uiStyle === 'acrylic' ? `
             background: #FFFFFFB0;
             backdrop-filter: blur(20px);
-            border: none;
             box-shadow: inset 0px 1px 4px rgba(0,0,0,.05);
           ` : `
             background: #f8f9fa;
-            border: 1px solid #e0e0e0;
             box-shadow: inset 0px 1px 4px rgba(0,0,0,.05);
           `}
         }
@@ -173,14 +170,14 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
           font-size: 1.5rem;
           font-weight: bold;
           color: #333;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           text-align: center;
         }
 
         .stats-list {
           display: flex;
           flex-direction: column;
-          gap: 1.5rem;
+          gap: 1rem;
         }
 
         .stat-item {
