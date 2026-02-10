@@ -33,13 +33,9 @@ const TalentView: React.FC<TalentViewProps> = ({
       newSelectedTalents = selectedTalents.filter(id => id !== talentId);
     } else {
       // 选择天赋，检查点数是否足够
-      const currentCost = selectedTalents.reduce((total, id) => {
-        const t = talents.find(t => t.id === id);
-        return total + (t?.cost || 0);
-      }, 0);
-
       // 对于负面天赋（cost为负数），它们会增加天赋点数，所以总是可以选择
-      if (talent.cost <= 0 || currentCost + talent.cost <= availableTalentPoints) {
+      // 对于正面天赋，检查是否有足够的可用点数
+      if (talent.cost <= 0 || talent.cost <= availableTalentPoints) {
         newSelectedTalents = [...selectedTalents, talentId];
       }
     }
@@ -49,11 +45,7 @@ const TalentView: React.FC<TalentViewProps> = ({
     }
   };
 
-  // 计算已使用的天赋点数
-  const usedTalentPoints = selectedTalents.reduce((total, id) => {
-    const talent = talents.find(t => t.id === id);
-    return total + (talent?.cost || 0);
-  }, 0);
+
 
   return (
     <div className="talent-view">
@@ -70,7 +62,8 @@ const TalentView: React.FC<TalentViewProps> = ({
           {talents.map((talent) => {
             const isSelected = selectedTalents.includes(talent.id);
             // 对于负面天赋（cost为负数），它们总是可选择的
-            const isAffordable = !isSelected && (talent.cost <= 0 || usedTalentPoints + talent.cost <= availableTalentPoints);
+            // 对于正面天赋，检查是否有足够的可用点数
+            const isAffordable = !isSelected && (talent.cost <= 0 || talent.cost <= availableTalentPoints);
             const isHovered = hoveredTalent === talent.id;
 
             return (
