@@ -103,6 +103,35 @@ export const talents: Talent[] = [
     description: '花钱更少',
     effect: { money: 50 },
     cost: 1
+  },
+  // 负面天赋 - 增加天赋值
+  {
+    id: 'procrastination',
+    name: '拖延症',
+    description: '学习和社交能力下降，但获得额外天赋点',
+    effect: { academic: -10, social: -10 },
+    cost: -2
+  },
+  {
+    id: 'laziness',
+    name: '懒惰',
+    description: '健康和心态下降，但获得额外天赋点',
+    effect: { health: -10, mental: -10 },
+    cost: -2
+  },
+  {
+    id: 'spendthrift',
+    name: '挥霍无度',
+    description: '金钱减少，但获得额外天赋点',
+    effect: { money: -100 },
+    cost: -1
+  },
+  {
+    id: 'perfectionist',
+    name: '完美主义',
+    description: '心态波动较大，但获得额外天赋点',
+    effect: { mental: -15 },
+    cost: -3
   }
 ];
 

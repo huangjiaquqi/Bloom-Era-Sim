@@ -38,7 +38,8 @@ const TalentView: React.FC<TalentViewProps> = ({
         return total + (t?.cost || 0);
       }, 0);
 
-      if (currentCost + talent.cost <= availableTalentPoints) {
+      // 对于负面天赋（cost为负数），它们会增加天赋点数，所以总是可以选择
+      if (talent.cost <= 0 || currentCost + talent.cost <= availableTalentPoints) {
         newSelectedTalents = [...selectedTalents, talentId];
       }
     }
@@ -69,7 +70,8 @@ const TalentView: React.FC<TalentViewProps> = ({
         <div className="talents-grid">
           {talents.map((talent) => {
             const isSelected = selectedTalents.includes(talent.id);
-            const isAffordable = !isSelected && usedTalentPoints + talent.cost <= availableTalentPoints;
+            // 对于负面天赋（cost为负数），它们总是可选择的
+            const isAffordable = !isSelected && (talent.cost <= 0 || usedTalentPoints + talent.cost <= availableTalentPoints);
             const isHovered = hoveredTalent === talent.id;
 
             return (
