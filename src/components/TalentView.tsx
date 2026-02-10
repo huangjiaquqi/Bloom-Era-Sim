@@ -63,7 +63,6 @@ const TalentView: React.FC<TalentViewProps> = ({
           <div className="talent-points-display">
             <span>可用天赋点: </span>
             <span className="points-value">{availableTalentPoints}</span>
-            <span className="points-used"> (已使用: {usedTalentPoints})</span>
           </div>
         </div>
 
@@ -220,12 +219,6 @@ const TalentView: React.FC<TalentViewProps> = ({
         .points-value {
           color: #4CAF50;
           font-size: 1.4rem;
-        }
-
-        .points-used {
-          font-size: 1rem;
-          color: #666;
-          font-weight: normal;
         }
 
         .talents-grid {
