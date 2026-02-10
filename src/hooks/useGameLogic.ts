@@ -117,10 +117,26 @@ export const useGameLogic = (): UseGameLogicReturn => {
 
   // 处理天赋选择
   const handleTalentSelect = useCallback((selectedTalents: string[]) => {
-    setPlayerState(prev => ({
-      ...prev,
-      selected_talents: selectedTalents
-    }));
+    setPlayerState(prev => {
+      // 计算初始天赋点数（根据难度）
+      const difficulty = difficultySettings.find(d => d.name === prev.difficulty);
+      const initialTalentPoints = difficulty?.talent_points || 3;
+      
+      // 计算已使用的天赋点数（正面天赋消耗点数，负面天赋增加点数）
+      const usedTalentPoints = selectedTalents.reduce((total, talentId) => {
+        const talent = talents.find(t => t.id === talentId);
+        return total + (talent?.cost || 0);
+      }, 0);
+      
+      // 计算当前可用天赋点数
+      const currentTalentPoints = initialTalentPoints - usedTalentPoints;
+      
+      return {
+        ...prev,
+        selected_talents: selectedTalents,
+        talent_points: currentTalentPoints
+      };
+    });
   }, []);
 
   // 处理开始游戏
