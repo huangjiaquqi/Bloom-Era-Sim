@@ -215,8 +215,23 @@ function App() {
         onClick={() => openModal('settings')}
         data-tag="按钮"
         aria-label="设置"
+        style={{
+          position: 'fixed',
+          top: '20px',
+          right: '20px',
+          backgroundColor: 'transparent',
+          border: 'none',
+          zIndex: '10',
+          cursor: 'pointer',
+          padding: '8px',
+          transition: 'transform 0.3s ease'
+        }}
       >
-        <span className="text-3xl" data-tag="按钮">⚙️</span>
+        <span 
+          className="text-3xl" 
+          data-tag="按钮"
+          style={{ fontSize: '1.8rem' }}
+        >⚙️</span>
       </button>
       
       {/* 渲染当前页面 */}
@@ -278,34 +293,7 @@ function App() {
         />
       )}
       
-      <style>
-        .app-container {
-          position: relative;
-          min-height: 100vh;
-          width: 100%;
-          overflow: hidden;
-        }
-        
-        .global-settings-button {
-          position: fixed;
-          top: 20px;
-          right: 20px;
-          background-color: transparent;
-          border: none;
-          z-index: 10;
-          cursor: pointer;
-          padding: 8px;
-          transition: transform 0.3s ease;
-        }
-        
-        .global-settings-button:hover {
-          transform: scale(1.1);
-        }
-        
-        .text-3xl {
-          font-size: 1.8rem;
-        }
-      </style>
+      {/* 样式已移至内联样式和CSS文件 */}
     </div>
   );
 }
