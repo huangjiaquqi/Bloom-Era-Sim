@@ -10,7 +10,6 @@ import { AchievementModal } from './components/AchievementModal';
 import { AchievementNotification } from './components/AchievementNotification';
 import { VersionModal } from './components/VersionModal';
 import { AboutModal } from './components/AboutModal';
-import BackgroundRenderer from './components/BackgroundRenderer';
 import { useGameLogic } from './hooks/useGameLogic';
 import { getAchievements, unlockAchievement } from './data/achievements';
 import { CategorizedAchievement } from './data/achievements';
@@ -189,9 +188,6 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* 使用Three.js背景渲染器 */}
-      <BackgroundRenderer uiStyle={uiStyle} />
-      
       {/* 全局设置按钮 */}
       <button
         className="global-settings-button"
@@ -265,9 +261,8 @@ function App() {
           min-height: 100vh;
           width: 100%;
           overflow: hidden;
+          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
-        
-
         
         .global-settings-button {
           position: fixed;
