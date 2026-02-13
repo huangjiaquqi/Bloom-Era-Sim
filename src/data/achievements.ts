@@ -4,7 +4,7 @@ import { Achievement } from '../types';
 // 成就分类接口
 export interface CategorizedAchievement extends Achievement {
   icon: string;
-  category: 'regular' | 'rare' | 'epic' | 'legendary' | 'mythic' | 'hidden';
+  category: 'regular' | 'rare' | 'epic' | 'legendary' | 'mythic';
 }
 
 // 基础成就数据
@@ -57,16 +57,6 @@ const baseAchievements: CategorizedAchievement[] = [
     completed: false,
     icon: '👑',
     category: 'mythic'
-  },
-  
-  // 隐藏成就
-  {
-    id: 'hidden-placeholder',
-    title: '隐藏成就',
-    description: '隐藏品质成就占位',
-    completed: false,
-    icon: '❓',
-    category: 'hidden'
   }
 ];
 
@@ -137,7 +127,7 @@ export const getAchievementsByCategory = (userName: string, category: string): C
 
 // 获取所有成就分类
 export const getAchievementCategories = () => {
-  return ['regular', 'rare', 'epic', 'legendary', 'mythic', 'hidden'];
+  return ['regular', 'rare', 'epic', 'legendary', 'mythic'];
 };
 
 // 获取分类的中文名称
@@ -147,8 +137,7 @@ export const getCategoryDisplayName = (category: string) => {
     rare: '稀有',
     epic: '史诗',
     legendary: '传说',
-    mythic: '神话',
-    hidden: '隐藏'
+    mythic: '神话'
   };
   return categoryNames[category as keyof typeof categoryNames] || category;
 };
@@ -160,8 +149,7 @@ export const getCategoryDescription = (category: string) => {
     rare: '多试几次就能成的！',
     epic: '悬赏挑战！',
     legendary: '什么？你就是传奇！',
-    mythic: '嘿，收集全成就大概会栽在这里吧。',
-    hidden: '别看了，根本不可能'
+    mythic: '别看了，根本不可能'
   };
   return categoryDescriptions[category as keyof typeof categoryDescriptions] || '';
 };
