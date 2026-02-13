@@ -83,6 +83,8 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
               overscroll-behavior: contain;
               scrollbar-width: thin;
               scrollbar-color: rgba(158, 158, 158, 0.5) rgba(232, 232, 232, 0.5);
+              will-change: scroll-position;
+              -webkit-overflow-scrolling: touch;
             }
             
             .scroll-smooth::-webkit-scrollbar {
@@ -101,6 +103,13 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
             
             .scroll-smooth::-webkit-scrollbar-thumb:hover {
               background: rgba(158, 158, 158, 0.8);
+            }
+            
+            .achievement-card {
+              will-change: transform;
+              transform: translateZ(0);
+              backface-visibility: hidden;
+              perspective: 1000px;
             }
           `}</style>
           {/* 按分类显示成就 */}
@@ -130,24 +139,17 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
                   {categoryAchievements.map((achievement) => (
                     <div 
                       key={achievement.id} 
-                      className="p-4 rounded-lg"
+                      className="p-4 rounded-lg achievement-card"
                       style={{
                         ...(uiStyle === 'liquid-glass' ? {
                           background: '#FFFFFF2A',
                           border: `1px solid ${categoryColor}33`,
-                          backdropFilter: 'blur(10px) saturate(1.35)',
-                          boxShadow: `
-                            0 8px 24px #20268833,
-                            inset 0px 0px 10px #FFFFFF1A,
-                            inset -3px 3px 4px #FFFFFF10,
-                            inset -0.5px 0.5px 0px #FFFFFF60
-                          `,
+                          boxShadow: '0 4px 12px rgba(32, 38, 136, 0.15)',
                           borderRadius: '8px'
                         } : uiStyle === 'acrylic' ? {
                           background: '#FFFFFFB0',
                           border: `1px solid ${categoryColor}33`,
-                          backdropFilter: 'blur(20px)',
-                          boxShadow: '0px 2px 12px rgba(0,0,0,.1)',
+                          boxShadow: '0px 2px 8px rgba(0,0,0,.1)',
                           borderRadius: '8px'
                         } : {
                           background: '#f8f9fa',
@@ -172,8 +174,7 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
                                 borderRadius: '4px',
                                 border: `1px solid ${categoryColor}33`,
                                 fontWeight: 500,
-                                fontSize: '0.9rem',
-                                backdropFilter: 'blur(5px)'
+                                fontSize: '0.9rem'
                               } : uiStyle === 'acrylic' ? {
                                 background: `${categoryColor}90`,
                                 color: 'white',
@@ -181,8 +182,7 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
                                 borderRadius: '4px',
                                 border: `1px solid ${categoryColor}33`,
                                 fontWeight: 500,
-                                fontSize: '0.9rem',
-                                backdropFilter: 'blur(3px)'
+                                fontSize: '0.9rem'
                               } : {
                                 background: categoryColor,
                                 color: 'white',
