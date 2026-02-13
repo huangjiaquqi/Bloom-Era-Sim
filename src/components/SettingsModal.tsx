@@ -9,7 +9,7 @@ interface SettingsModalProps {
   setBackgroundTheme: (theme: string) => void;
 }
 
-type BackgroundTheme = 'deep' | 'vibrant' | 'fresh' | 'energetic';
+type BackgroundTheme = 'default' | 'deep' | 'vibrant' | 'fresh' | 'energetic';
 
 interface ThemeConfig {
   name: string;
@@ -18,6 +18,11 @@ interface ThemeConfig {
 }
 
 const backgroundThemes: Record<BackgroundTheme, ThemeConfig> = {
+  default: {
+    name: '默认',
+    gradient: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+    description: '最初默认'
+  },
   deep: {
     name: '深邃',
     gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',

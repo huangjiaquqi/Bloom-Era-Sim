@@ -50,7 +50,7 @@ function App() {
   // 状态管理：UI风格
   const [uiStyle, setUiStyle] = useState<string>('default'); // 默认风格
   // 状态管理：背景主题
-  const [backgroundTheme, setBackgroundTheme] = useState<string>('fresh'); // 默认主题：清新
+  const [backgroundTheme, setBackgroundTheme] = useState<string>('default'); // 默认主题：最初默认
   
   // 当用户昵称变化时，更新成就
   useEffect(() => {
@@ -188,9 +188,11 @@ function App() {
     }
   };
 
-  // 获取当前背景主题的渐变
-  const getBackgroundGradient = () => {
+  // 获取背景渐变
+  const getBackground = () => {
     switch (backgroundTheme) {
+      case 'default':
+        return 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
       case 'deep':
         return 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
       case 'vibrant':
@@ -205,10 +207,17 @@ function App() {
   };
 
   return (
-    <div className="app-container" style={{ 
-      background: getBackgroundGradient(),
-      transition: 'background 0.5s ease'
-    }}>
+    <div 
+      className="app-container" 
+      style={{ 
+        position: 'relative',
+        minHeight: '100vh',
+        width: '100%',
+        overflow: 'hidden',
+        background: getBackground(),
+        transition: 'background 0.5s ease'
+      }}
+    >
       {/* 全局设置按钮 */}
       <button
         className="global-settings-button"
@@ -292,10 +301,8 @@ function App() {
           uiStyle={uiStyle}
         />
       )}
-      
-      {/* 样式已移至内联样式和CSS文件 */}
     </div>
   );
 }
 
-export default App
+export default App;
