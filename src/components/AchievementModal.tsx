@@ -76,7 +76,33 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
             ✕
           </button>
         </div>
-        <div className="overflow-y-auto h-[calc(100%-80px)] pr-2">
+        <div className="overflow-y-auto h-[calc(100%-80px)] pr-2 scroll-smooth">
+          <style>{`
+            .scroll-smooth {
+              scroll-behavior: smooth;
+              overscroll-behavior: contain;
+              scrollbar-width: thin;
+              scrollbar-color: rgba(158, 158, 158, 0.5) rgba(232, 232, 232, 0.5);
+            }
+            
+            .scroll-smooth::-webkit-scrollbar {
+              width: 6px;
+            }
+            
+            .scroll-smooth::-webkit-scrollbar-track {
+              background: rgba(232, 232, 232, 0.5);
+              border-radius: 3px;
+            }
+            
+            .scroll-smooth::-webkit-scrollbar-thumb {
+              background: rgba(158, 158, 158, 0.5);
+              border-radius: 3px;
+            }
+            
+            .scroll-smooth::-webkit-scrollbar-thumb:hover {
+              background: rgba(158, 158, 158, 0.8);
+            }
+          `}</style>
           {/* 按分类显示成就 */}
           {categories.map((category) => {
             const categoryAchievements = achievements.filter(a => a.category === category);

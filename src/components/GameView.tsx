@@ -218,6 +218,10 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
           height: 100%;
           padding: 1rem;
           overflow-y: auto;
+          scroll-behavior: smooth;
+          overscroll-behavior: contain;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(158, 158, 158, 0.5) rgba(232, 232, 232, 0.5);
         }
 
         .left-rectangle-content::-webkit-scrollbar {
@@ -225,17 +229,17 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
         }
 
         .left-rectangle-content::-webkit-scrollbar-track {
-          background: #f1f1f1;
+          background: rgba(232, 232, 232, 0.5);
           border-radius: 3px;
         }
 
         .left-rectangle-content::-webkit-scrollbar-thumb {
-          background: #888;
+          background: rgba(158, 158, 158, 0.5);
           border-radius: 3px;
         }
 
         .left-rectangle-content::-webkit-scrollbar-thumb:hover {
-          background: #555;
+          background: rgba(158, 158, 158, 0.8);
         }
 
         /* 左侧内容包装器 */

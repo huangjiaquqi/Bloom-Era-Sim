@@ -50,7 +50,33 @@ export const AboutModal: React.FC<AboutModalProps> = ({ closeModal, uiStyle = 'd
             ✕
           </button>
         </div>
-        <div className="overflow-y-auto h-[calc(100%-80px)] pr-2">
+        <div className="overflow-y-auto h-[calc(100%-80px)] pr-2 scroll-smooth">
+          <style>{`
+            .scroll-smooth {
+              scroll-behavior: smooth;
+              overscroll-behavior: contain;
+              scrollbar-width: thin;
+              scrollbar-color: rgba(158, 158, 158, 0.5) rgba(232, 232, 232, 0.5);
+            }
+            
+            .scroll-smooth::-webkit-scrollbar {
+              width: 6px;
+            }
+            
+            .scroll-smooth::-webkit-scrollbar-track {
+              background: rgba(232, 232, 232, 0.5);
+              border-radius: 3px;
+            }
+            
+            .scroll-smooth::-webkit-scrollbar-thumb {
+              background: rgba(158, 158, 158, 0.5);
+              border-radius: 3px;
+            }
+            
+            .scroll-smooth::-webkit-scrollbar-thumb:hover {
+              background: rgba(158, 158, 158, 0.8);
+            }
+          `}</style>
           {/* 游戏简介内容 */}
           <div className="space-y-6">
             <div>

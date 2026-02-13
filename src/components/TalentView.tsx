@@ -171,6 +171,10 @@ const TalentView: React.FC<TalentViewProps> = ({
           max-height: 90vh;
           min-height: 80vh;
           overflow-y: auto;
+          scroll-behavior: smooth;
+          overscroll-behavior: contain;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(158, 158, 158, 0.5) rgba(232, 232, 232, 0.5);
           ${uiStyle === 'liquid-glass' ? `
             background: #FFFFFF2A; /* 16.5% 透明度白色 */
             border: 1px solid #FFFFFF33; /* 20% 透明度白色边框 */
@@ -190,6 +194,24 @@ const TalentView: React.FC<TalentViewProps> = ({
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           `}
+        }
+
+        .talent-content::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .talent-content::-webkit-scrollbar-track {
+          background: rgba(232, 232, 232, 0.5);
+          border-radius: 3px;
+        }
+        
+        .talent-content::-webkit-scrollbar-thumb {
+          background: rgba(158, 158, 158, 0.5);
+          border-radius: 3px;
+        }
+        
+        .talent-content::-webkit-scrollbar-thumb:hover {
+          background: rgba(158, 158, 158, 0.8);
         }
 
         .header-section {
