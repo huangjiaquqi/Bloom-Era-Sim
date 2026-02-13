@@ -50,7 +50,7 @@ function App() {
   // 状态管理：UI风格
   const [uiStyle, setUiStyle] = useState<string>('default'); // 默认风格
   // 状态管理：背景主题
-  const [backgroundTheme, setBackgroundTheme] = useState<string>('deep'); // 默认主题：深邃
+  const [backgroundTheme, setBackgroundTheme] = useState<string>('fresh'); // 默认主题：清新
   
   // 当用户昵称变化时，更新成就
   useEffect(() => {
@@ -265,18 +265,38 @@ function App() {
           min-height: 100vh;
           width: 100%;
           overflow: hidden;
-          ${backgroundTheme === 'deep' ? `
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          ` : backgroundTheme === 'vibrant' ? `
-            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
-          ` : backgroundTheme === 'fresh' ? `
-            background: linear-gradient(135deg, #4ecdc4 0%, #45b7d1 100%);
-          ` : backgroundTheme === 'energetic' ? `
-            background: linear-gradient(135deg, #ffa726 0%, #9ccc65 100%);
-          ` : `
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-          `}
+          transition: background 0.5s ease;
         }
+        
+        ${backgroundTheme === 'deep' && `
+          .app-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          }
+        `}
+        
+        ${backgroundTheme === 'vibrant' && `
+          .app-container {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+          }
+        `}
+        
+        ${backgroundTheme === 'fresh' && `
+          .app-container {
+            background: linear-gradient(135deg, #4ecdc4 0%, #45b7d1 100%);
+          }
+        `}
+        
+        ${backgroundTheme === 'energetic' && `
+          .app-container {
+            background: linear-gradient(135deg, #ffa726 0%, #9ccc65 100%);
+          }
+        `}
+        
+        ${!['deep', 'vibrant', 'fresh', 'energetic'].includes(backgroundTheme) && `
+          .app-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+          }
+        `}
         
         .global-settings-button {
           position: fixed;

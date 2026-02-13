@@ -145,7 +145,7 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
           flex-direction: column;
           min-height: 100vh;
           padding: 2rem;
-          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+          background: transparent;
           overflow: hidden;
         }
 

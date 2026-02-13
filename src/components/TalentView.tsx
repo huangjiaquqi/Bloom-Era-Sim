@@ -160,7 +160,7 @@ const TalentView: React.FC<TalentViewProps> = ({
           justify-content: center;
           min-height: 100vh;
           padding: 2rem;
-          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+          background: transparent;
         }
 
         .talent-content {
