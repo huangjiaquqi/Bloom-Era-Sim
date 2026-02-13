@@ -5,11 +5,48 @@ interface SettingsModalProps {
   closeModal: () => void;
   uiStyle: string;
   setUiStyle: (style: string) => void;
+  backgroundTheme: string;
+  setBackgroundTheme: (theme: string) => void;
 }
 
-export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyle, setUiStyle }) => {
+type BackgroundTheme = 'deep' | 'vibrant' | 'fresh' | 'energetic';
+
+interface ThemeConfig {
+  name: string;
+  gradient: string;
+  description: string;
+}
+
+const backgroundThemes: Record<BackgroundTheme, ThemeConfig> = {
+  deep: {
+    name: '深邃',
+    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    description: '蓝色+紫色'
+  },
+  vibrant: {
+    name: '鲜艳',
+    gradient: 'linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%)',
+    description: '红色+橙色'
+  },
+  fresh: {
+    name: '清新',
+    gradient: 'linear-gradient(135deg, #4ecdc4 0%, #45b7d1 100%)',
+    description: '天蓝色+青翠绿'
+  },
+  energetic: {
+    name: '活力',
+    gradient: 'linear-gradient(135deg, #ffa726 0%, #9ccc65 100%)',
+    description: '淡橙色+淡绿色'
+  }
+};
+
+export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyle, setUiStyle, backgroundTheme, setBackgroundTheme }) => {
   const handleStyleChange = (style: string) => {
     setUiStyle(style);
+  };
+
+  const handleThemeChange = (theme: string) => {
+    setBackgroundTheme(theme);
   };
 
   return (
@@ -112,6 +149,36 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ closeModal, uiStyl
               </div>
               <span className="text-gray-800" data-tag="常规文本">亚克力</span>
             </div>
+          </div>
+        </div>
+        
+        {/* 背景主题选择 */}
+        <div className="mb-6">
+          <h4 className="text-lg font-semibold mb-3" data-tag="常规文本">背景主题</h4>
+          <div className="space-y-2">
+            {Object.entries(backgroundThemes).map(([theme, config]) => (
+              <div 
+                key={theme}
+                className={`flex items-center p-3 rounded-lg cursor-pointer transition-all ${
+                  backgroundTheme === theme 
+                    ? 'bg-blue-100 border-2 border-blue-500' 
+                    : 'bg-gray-50 hover:bg-gray-100 border-2 border-transparent'
+                }`}
+                onClick={() => handleThemeChange(theme)}
+                data-tag="按钮"
+              >
+                <div className={`w-5 h-5 rounded-full mr-3 flex items-center justify-center ${backgroundTheme === theme ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>
+                  {backgroundTheme === theme && <span className="text-xs">✓</span>}
+                </div>
+                <div className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-800 font-medium" data-tag="常规文本">{config.name}</span>
+                    <span className="text-xs text-gray-500" data-tag="常规文本">{config.description}</span>
+                  </div>
+                  <div className="mt-1 h-2 rounded-full" style={{ background: config.gradient }}></div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         
