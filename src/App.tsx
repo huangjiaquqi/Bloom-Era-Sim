@@ -188,8 +188,27 @@ function App() {
     }
   };
 
+  // 获取当前背景主题的渐变
+  const getBackgroundGradient = () => {
+    switch (backgroundTheme) {
+      case 'deep':
+        return 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+      case 'vibrant':
+        return 'linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%)';
+      case 'fresh':
+        return 'linear-gradient(135deg, #4ecdc4 0%, #45b7d1 100%)';
+      case 'energetic':
+        return 'linear-gradient(135deg, #ffa726 0%, #9ccc65 100%)';
+      default:
+        return 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+    }
+  };
+
   return (
-    <div className="app-container">
+    <div className="app-container" style={{ 
+      background: getBackgroundGradient(),
+      transition: 'background 0.5s ease'
+    }}>
       {/* 全局设置按钮 */}
       <button
         className="global-settings-button"
@@ -259,44 +278,13 @@ function App() {
         />
       )}
       
-      <style>{`
+      <style>
         .app-container {
           position: relative;
           min-height: 100vh;
           width: 100%;
           overflow: hidden;
-          transition: background 0.5s ease;
         }
-        
-        ${backgroundTheme === 'deep' && `
-          .app-container {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          }
-        `}
-        
-        ${backgroundTheme === 'vibrant' && `
-          .app-container {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
-          }
-        `}
-        
-        ${backgroundTheme === 'fresh' && `
-          .app-container {
-            background: linear-gradient(135deg, #4ecdc4 0%, #45b7d1 100%);
-          }
-        `}
-        
-        ${backgroundTheme === 'energetic' && `
-          .app-container {
-            background: linear-gradient(135deg, #ffa726 0%, #9ccc65 100%);
-          }
-        `}
-        
-        ${!['deep', 'vibrant', 'fresh', 'energetic'].includes(backgroundTheme) && `
-          .app-container {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-          }
-        `}
         
         .global-settings-button {
           position: fixed;
@@ -317,7 +305,7 @@ function App() {
         .text-3xl {
           font-size: 1.8rem;
         }
-      `}</style>
+      </style>
     </div>
   );
 }
