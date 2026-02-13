@@ -13,7 +13,7 @@ const baseAchievements: CategorizedAchievement[] = [
   {
     id: 'regular-first',
     title: '入学!',
-    description: '首次开始你的BloomEraSim之旅',
+    description: '成功开始学习之旅',
     completed: false,
     icon: '🎓',
     category: 'regular'
