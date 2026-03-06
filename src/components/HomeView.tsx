@@ -76,6 +76,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onStartGame, us
             {/* 中央内容 */}
             <div className="center-content">
               <div className="difficulty-container">
+                <img src="/favicon.svg" alt="BES Logo" className="difficulty-logo" />
                 <div className="difficulty-title">难度</div>
                 <div className="difficulty-options">
                   <div 
@@ -378,6 +379,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onStartGame, us
           justify-content: flex-start;
           margin-bottom: 2rem;
           gap: 1.5rem;
+          position: relative;
           ${uiStyle === 'liquid-glass' ? `
             background: #FFFFFF2A; /* 16.5% 透明度白色 */
             border: 1px solid #FFFFFF33; /* 20% 透明度白色边框 */
@@ -397,6 +399,23 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onStartGame, us
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           `}
+        }
+        
+        .difficulty-logo {
+          position: absolute;
+          top: 1.5rem;
+          right: 1.5rem;
+          width: 100px;
+          height: 100px;
+          border-radius: 24px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+          transform: translateY(-3px);
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+        
+        .difficulty-logo:hover {
+          transform: translateY(-3px) rotate(3deg);
         }
         
         .difficulty-title {
