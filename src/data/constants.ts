@@ -48,21 +48,6 @@ export const difficultySettings: DifficultySettings[] = [
     mental_decay: 1.0
   },
   {
-    name: '中等',
-    description: '挑战性较高，需要精心规划',
-    starting_stats: {
-      mental: 60,
-      health: 60,
-      academic: 50,
-      social: 50,
-      money: 200
-    },
-    talent_points: 5,
-    event_frequency: 1.3,
-    study_efficiency: 0.8,
-    mental_decay: 1.2
-  },
-  {
     name: '现实',
     description: '极限挑战，适合经验丰富的玩家',
     starting_stats: {
