@@ -139,7 +139,7 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
                   {categoryAchievements.map((achievement) => (
                     <div 
                       key={achievement.id} 
-                      className="p-4 rounded-lg achievement-card"
+                      className={`p-4 rounded-lg achievement-card relative overflow-hidden ${!achievement.completed ? 'achievement-locked' : ''}`}
                       style={{
                         ...(uiStyle === 'liquid-glass' ? {
                           background: '#FFFFFF2A',
@@ -160,7 +160,10 @@ export const AchievementModal: React.FC<AchievementModalProps> = ({ achievements
                       }}
                       data-tag="图形"
                     >
-                      <div className="flex items-start gap-3">
+                      {!achievement.completed && (
+                        <div className="absolute inset-0 bg-gray-500 bg-opacity-50 z-10" data-tag="图形"></div>
+                      )}
+                      <div className="flex items-start gap-3" style={{ position: 'relative', zIndex: achievement.completed ? 1 : 0 }}>
                         <div className="text-2xl">{achievement.icon}</div>
                         <div className="flex-1">
                           <h5 className="font-bold text-gray-900 text-lg" data-tag="常规文本">{achievement.title}</h5>
