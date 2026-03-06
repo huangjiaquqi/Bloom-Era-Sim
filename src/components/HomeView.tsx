@@ -86,12 +86,6 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onStartGame, us
                     <span className="difficulty-name">🌱 普通</span>
                   </div>
                   <div 
-                    className={`difficulty-option medium ${selectedDifficulty === '中等' ? 'selected' : ''}`}
-                    onClick={() => handleDifficultyClick('中等')}
-                  >
-                    <span className="difficulty-name">⚡ 中等</span>
-                  </div>
-                  <div 
                     className={`difficulty-option hard ${selectedDifficulty === '现实' ? 'selected' : ''}`}
                     onClick={() => handleDifficultyClick('现实')}
                   >
@@ -99,7 +93,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onStartGame, us
                   </div>
                 </div>
                 
-                {selectedDifficulty !== '现实' && (
+                {selectedDifficulty === '普通' && (
                   <div className="achievement-note" style={{ color: '#FFC107', fontSize: '0.85rem', fontWeight: 'bold', marginTop: '0.5rem' }}>
                     ⚠️ 只有现实难度才能解锁成就
                   </div>
@@ -473,7 +467,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onStartGame, us
         }
         
         .difficulty-option.mode-fast {
-          background: linear-gradient(135deg, #4CAF50 0%, #F44336 100%);
+          background: linear-gradient(135deg, #4CAF50 0%, #4A90E2 100%);
           color: white;
         }
         
@@ -499,7 +493,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onDifficultySelect, onStartGame, us
         }
         
         .difficulty-option.mode-fast.selected {
-          box-shadow: 0 0 20px 3px rgba(76, 175, 80, 0.7), 0 0 20px 3px rgba(244, 67, 54, 0.7), 0 6px 12px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 20px 3px rgba(76, 175, 80, 0.7), 0 0 20px 3px rgba(74, 144, 226, 0.7), 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         
         .difficulty-option.mode-deep.selected {
