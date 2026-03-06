@@ -147,7 +147,7 @@ const TalentView: React.FC<TalentViewProps> = ({
             返回主页
           </button>
           <button className="continue-button" onClick={onContinue}>
-            前往游戏页
+            开始游戏
           </button>
         </div>
       </div>
