@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { 
+  DEFAULT_CULTURAL_SKILLS, 
+  calculateCulturalAbilities, 
+  CULTURAL_SUBJECT_NAMES,
+  CulturalSubjectAbilities 
+} from '../data/culturalSkills';
 
 interface GameViewProps {
   onBackToHome: () => void;
@@ -8,6 +14,20 @@ interface GameViewProps {
 const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
   const [showAcademicModal, setShowAcademicModal] = useState(false);
   const [showOIModal, setShowOIModal] = useState(false);
+  const [subjectAbilities, setSubjectAbilities] = useState<CulturalSubjectAbilities>(
+    calculateCulturalAbilities(DEFAULT_CULTURAL_SKILLS)
+  );
+
+  useEffect(() => {
+    setSubjectAbilities(calculateCulturalAbilities(DEFAULT_CULTURAL_SKILLS));
+  }, []);
+
+  const getAbilityColor = (value: number) => {
+    if (value >= 80) return '#4CAF50';
+    if (value >= 60) return '#FFC107';
+    if (value >= 40) return '#FF9800';
+    return '#F44336';
+  };
 
   return (
     <div className="game-view">
@@ -20,6 +40,31 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
       {/* 左侧圆角矩形 */}
       <div className="left-rectangle" style={{ zIndex: 1 }}>
         <div className="left-rectangle-content">
+          <h2 className="section-title">学科能力</h2>
+          <div className="subject-abilities-list">
+            {(Object.entries(subjectAbilities) as [keyof CulturalSubjectAbilities, number][]).map(([key, value]) => (
+              <div key={key} className="subject-ability-item">
+                <div className="subject-ability-header">
+                  <span className="subject-name">{CULTURAL_SUBJECT_NAMES[key]}</span>
+                  <span 
+                    className="subject-value"
+                    style={{ color: getAbilityColor(value) }}
+                  >
+                    {value}
+                  </span>
+                </div>
+                <div className="ability-bar-container">
+                  <div 
+                    className="ability-bar"
+                    style={{ 
+                      width: `${value}%`,
+                      backgroundColor: getAbilityColor(value)
+                    }}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -114,6 +159,7 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
           width: 250px;
           margin: 10px;
           border-radius: 20px;
+          overflow-y: auto;
           ${uiStyle === 'liquid-glass' ? `
             background: #FFFFFF2A;
             border: 1px solid #FFFFFF33;
@@ -138,6 +184,77 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
         .left-rectangle-content {
           height: 100%;
           padding: 1rem;
+        }
+
+        .section-title {
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+
+        .subject-abilities-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+        }
+
+        .subject-ability-item {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+        }
+
+        .subject-ability-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .subject-name {
+          font-size: 0.85rem;
+          font-weight: bold;
+          color: #555;
+        }
+
+        .subject-value {
+          font-size: 0.9rem;
+          font-weight: bold;
+        }
+
+        .ability-bar-container {
+          height: 8px;
+          background: #e0e0e0;
+          border-radius: 4px;
+          overflow: hidden;
+          ${uiStyle === 'liquid-glass' ? `
+            background: #FFFFFF40;
+          ` : uiStyle === 'acrylic' ? `
+            background: #FFFFFF60;
+          ` : `
+            background: #e0e0e0;
+          `}
+        }
+
+        .ability-bar {
+          height: 100%;
+          border-radius: 4px;
+          transition: width 0.3s ease;
+        }
+
+        .left-rectangle::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        .left-rectangle::-webkit-scrollbar-track {
+          background: rgba(232, 232, 232, 0.5);
+          border-radius: 3px;
+        }
+
+        .left-rectangle::-webkit-scrollbar-thumb {
+          background: rgba(158, 158, 158, 0.5);
+          border-radius: 3px;
         }
 
         /* 右侧圆角矩形 */
