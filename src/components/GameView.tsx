@@ -5,6 +5,16 @@ import {
   CULTURAL_SUBJECT_NAMES,
   CulturalSubjectAbilities 
 } from '../data/culturalSkills';
+import { 
+  DEFAULT_OI_KNOWLEDGE,
+  OI_KNOWLEDGE_NAMES,
+  OIKnowledge
+} from '../data/oiSkills';
+import { 
+  DEFAULT_GENERAL_ABILITIES,
+  GENERAL_ABILITY_NAMES,
+  GeneralAbilities
+} from '../data/generalSkills';
 
 interface GameViewProps {
   onBackToHome: () => void;
@@ -17,9 +27,13 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
   const [subjectAbilities, setSubjectAbilities] = useState<CulturalSubjectAbilities>(
     calculateCulturalAbilities(DEFAULT_CULTURAL_SKILLS)
   );
+  const [oiKnowledge, setOiKnowledge] = useState<OIKnowledge>(DEFAULT_OI_KNOWLEDGE);
+  const [generalAbilities, setGeneralAbilities] = useState<GeneralAbilities>(DEFAULT_GENERAL_ABILITIES);
 
   useEffect(() => {
     setSubjectAbilities(calculateCulturalAbilities(DEFAULT_CULTURAL_SKILLS));
+    setOiKnowledge(DEFAULT_OI_KNOWLEDGE);
+    setGeneralAbilities(DEFAULT_GENERAL_ABILITIES);
   }, []);
 
   const getAbilityColor = (value: number) => {
@@ -71,6 +85,59 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
       {/* 右侧圆角矩形 */}
       <div className="right-rectangle" style={{ zIndex: 1 }}>
         <div className="right-rectangle-content">
+          <h2 className="section-title">OI竞赛</h2>
+          
+          <h3 className="subsection-title">知识结构</h3>
+          <div className="subject-abilities-list">
+            {(Object.entries(oiKnowledge) as [keyof OIKnowledge, number][]).map(([key, value]) => (
+              <div key={key} className="subject-ability-item">
+                <div className="subject-ability-header">
+                  <span className="subject-name">{OI_KNOWLEDGE_NAMES[key]}</span>
+                  <span 
+                    className="subject-value"
+                    style={{ color: getAbilityColor(value) }}
+                  >
+                    {value}
+                  </span>
+                </div>
+                <div className="ability-bar-container">
+                  <div 
+                    className="ability-bar"
+                    style={{ 
+                      width: `${value}%`,
+                      backgroundColor: getAbilityColor(value)
+                    }}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <h3 className="subsection-title">常规属性</h3>
+          <div className="subject-abilities-list">
+            {(Object.entries(generalAbilities) as [keyof GeneralAbilities, number][]).map(([key, value]) => (
+              <div key={key} className="subject-ability-item">
+                <div className="subject-ability-header">
+                  <span className="subject-name">{GENERAL_ABILITY_NAMES[key]}</span>
+                  <span 
+                    className="subject-value"
+                    style={{ color: getAbilityColor(value) }}
+                  >
+                    {value}
+                  </span>
+                </div>
+                <div className="ability-bar-container">
+                  <div 
+                    className="ability-bar"
+                    style={{ 
+                      width: `${value}%`,
+                      backgroundColor: getAbilityColor(value)
+                    }}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -193,6 +260,15 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
           margin-bottom: 1rem;
           text-align: center;
         }
+        
+        .subsection-title {
+          font-size: 0.95rem;
+          font-weight: bold;
+          color: #555;
+          margin-top: 1rem;
+          margin-bottom: 0.75rem;
+          text-align: center;
+        }
 
         .subject-abilities-list {
           display: flex;
@@ -266,6 +342,7 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
           width: 250px;
           margin: 10px;
           border-radius: 20px;
+          overflow-y: auto;
           ${uiStyle === 'liquid-glass' ? `
             background: #FFFFFF2A;
             border: 1px solid #FFFFFF33;
@@ -285,6 +362,20 @@ const GameView: React.FC<GameViewProps> = ({ uiStyle = 'default' }) => {
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           `}
+        }
+        
+        .right-rectangle::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .right-rectangle::-webkit-scrollbar-track {
+          background: rgba(232, 232, 232, 0.5);
+          border-radius: 3px;
+        }
+        
+        .right-rectangle::-webkit-scrollbar-thumb {
+          background: rgba(158, 158, 158, 0.5);
+          border-radius: 3px;
         }
 
         .right-rectangle-content {
